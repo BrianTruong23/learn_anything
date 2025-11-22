@@ -3,6 +3,8 @@ import './App.css';
 import TimerScoreWidget from './TimerScoreWidget';
 import QuizSection from './QuizSection';
 import ConceptSequence from './ConceptSequence';
+import ConceptSummary from './components/ConceptSummary';
+import ConceptExplorer from './components/ConceptExplorer';
 import { concepts } from './data/conceptsData.js';
 
 const transformerSources = [
@@ -33,9 +35,10 @@ const transformerSources = [
 ];
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [inputValue, setInputValue] = useState('');
-  const [hasSearched, setHasSearched] = useState(false);
+
+  
+  // Navigation state
+  const [currentView, setCurrentView] = useState('explorer'); // 'explorer' or 'transformer'
   
   // Timer & Score state
   const [seconds, setSeconds] = useState(0);
@@ -74,12 +77,7 @@ function App() {
     }
   }, [seconds, lastMinuteCounted]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-    setSearchQuery(inputValue);
-    setHasSearched(true);
-  };
+
 
   const toggleTimerVisibility = () => {
     setIsTimerVisible(prev => !prev);
@@ -96,93 +94,115 @@ function App() {
   };
 
   return (
+
     <div className="app-container">
       {/* Toggle Timer Button */}
-      {hasSearched && (
-        <button onClick={toggleTimerVisibility} className="toggle-timer-btn">
-          {isTimerVisible ? '👁️ Hide timer & score' : '👁️‍🗨️ Show timer & score'}
-        </button>
-      )}
+      <button onClick={toggleTimerVisibility} className="toggle-timer-btn">
+        {isTimerVisible ? '👁️ Hide timer & score' : '👁️‍🗨️ Show timer & score'}
+      </button>
 
-      {/* Search Section */}
-      <div className={`search-section ${hasSearched ? 'compact' : 'centered'}`}>
-        {!hasSearched && <h1 className="main-title">Learn Anything</h1>}
-        <form onSubmit={handleSearch} className="search-form">
-          <input
-            type="text"
-            placeholder="What do you want to learn? (e.g., Transformers)"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            className="search-input"
-          />
-          <button type="submit" className="search-button">Search</button>
-        </form>
-      </div>
+      {/* Timer & Score Widget */}
+      {isTimerVisible && (
+        <TimerScoreWidget 
+          seconds={seconds} 
+          score={score} 
+        />
+      )}
 
       {/* Content Area */}
-      {hasSearched && (
-        <main className="content-area fade-in">
-          <header className="topic-header">
-            <p className="search-meta">
-              Showing results for: <strong>{searchQuery}</strong> (mapped to Transformer Architecture)
-            </p>
-            <h1>Transformer Architecture</h1>
-          </header>
-
-          {/* Concept Sequence */}
-          <ConceptSequence 
-            difficulty={difficulty}
-            onDifficultyChange={setDifficulty}
+      <main className="content-area fade-in">
+        {currentView === 'explorer' ? (
+          <ConceptExplorer 
+            onSelectConcept={(conceptId) => {
+              if (conceptId === 'transformer') {
+                setCurrentView('transformer');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }} 
           />
+        ) : (
+          <>
+            <header className="topic-header">
+              <div style={{ marginBottom: '1rem' }}>
+                <button 
+                  onClick={() => setCurrentView('explorer')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#64748B',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: 0
+                  }}
+                >
+                  ← Back to Explorer
+                </button>
+              </div>
+              <h1>Transformer Architecture</h1>
+            </header>
 
-          {/* Sources Section */}
-          <section className="sources-section">
-            <h2>Learn from papers & credible sources</h2>
-            <p className="sources-intro">
-              Here are some foundational resources to go deeper into Transformers:
-            </p>
-            <div className="sources-grid">
-              {transformerSources.map((source, index) => (
-                <div key={index} className="source-card">
-                  <div className="source-header">
-                    <span className="source-type">{source.type}</span>
-                  </div>
-                  <h3 className="source-title">
-                    <a href={source.url} target="_blank" rel="noreferrer">
-                      {source.title}
-                    </a>
-                  </h3>
-                  <p className="source-description">{source.description}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Quiz Toggle Button */}
-          <div className="quiz-toggle-container">
-            <button 
-              onClick={() => setIsQuizVisible(!isQuizVisible)}
-              className="quiz-toggle-btn"
-            >
-              {isQuizVisible ? '📚 Hide Quiz' : '📝 Show Quiz'}
-            </button>
-          </div>
-
-          {/* Quiz Section - Collapsible */}
-          <div className={`quiz-wrapper ${isQuizVisible ? 'quiz-visible' : 'quiz-hidden'}`}>
-            <QuizSection 
-              onCorrectQuestion={handleCorrectQuestion}
-              selectedConcepts={selectedConcepts}
-              onConceptSelectionChange={setSelectedConcepts}
+            {/* Concept Sequence */}
+            <ConceptSequence 
+              difficulty={difficulty}
+              onDifficultyChange={setDifficulty}
+              setScore={setScore}
             />
-          </div>
-        </main>
-      )}
 
-      {/* Timer & Score Widget (bottom-right) */}
-      {isTimerVisible && <TimerScoreWidget seconds={seconds} score={score} />}
+            {/* Summary Section */}
+            <div className="app-summary-section">
+              <ConceptSummary sectionTitle="transformers" setScore={setScore} />
+            </div>
+
+            {/* Sources Section */}
+            <section className="sources-section">
+              <h2>Learn from papers & credible sources</h2>
+              <p className="sources-intro">
+                Here are some foundational resources to go deeper into Transformers:
+              </p>
+              <div className="sources-grid">
+                {transformerSources.map((source, index) => (
+                  <div key={index} className="source-card">
+                    <div className="source-header">
+                      <span className="source-type">{source.type}</span>
+                    </div>
+                    <h3 className="source-title">
+                      <a href={source.url} target="_blank" rel="noreferrer">
+                        {source.title}
+                      </a>
+                    </h3>
+                    <p className="source-description">{source.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Quiz Toggle Button */}
+            <div className="quiz-toggle-container">
+              <button 
+                onClick={() => setIsQuizVisible(!isQuizVisible)}
+                className="quiz-toggle-btn"
+              >
+                {isQuizVisible ? '📚 Hide Quiz' : '📝 Show Quiz'}
+              </button>
+            </div>
+
+            {/* Quiz Section - Collapsible */}
+            <div className={`quiz-wrapper ${isQuizVisible ? 'quiz-visible' : 'quiz-hidden'}`}>
+              <QuizSection 
+                onCorrectQuestion={handleCorrectQuestion}
+                selectedConcepts={selectedConcepts}
+                onConceptSelectionChange={setSelectedConcepts}
+              />
+            </div>
+          </>
+        )}
+      </main>
     </div>
   );
 }
+
 
 export default App;

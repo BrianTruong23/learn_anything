@@ -1,0 +1,140 @@
+.attention-container {
+  padding: 1rem;
+}
+
+.sentence-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  min-height: 100px;
+}
+
+.word-token {
+  position: relative;
+  padding: 0.6rem 1rem;
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.word-token:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.15);
+}
+
+.word-token.selected {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+  font-weight: 600;
+}
+
+.word-token.related {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.attention-line {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: #10b981;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: growDown 0.3s ease;
+}
+
+@keyframes growDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: 20px;
+  }
+}
+
+.attention-info {
+  min-height: 60px;
+}
+
+.info-box {
+  background: rgba(37, 99, 235, 0.1);
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.info-header {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.info-body {
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.instruction-box {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 1rem;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .sentence-display {
+    gap: 0.4rem;
+    padding: 1rem;
+  }
+  
+  .word-token {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}

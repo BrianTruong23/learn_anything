@@ -1,0 +1,130 @@
+.concept-explorer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.explorer-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.explorer-title {
+  font-size: 2.5rem;
+  color: #1F2D3D;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.explorer-subtitle {
+  font-size: 1.2rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.concept-card-item {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #E5E7EB;
+  position: relative;
+  overflow: hidden;
+}
+
+.concept-card-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  border-color: #3A7AFE;
+}
+
+.primary-card {
+  border-top: 6px solid #3A7AFE;
+}
+
+.placeholder-card {
+  opacity: 0.8;
+  background: #FAFAFA;
+}
+
+.card-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-badge.intermediate {
+  background: #E0F2FE;
+  color: #0284C7;
+}
+
+.card-badge.coming-soon {
+  background: #F3F4F6;
+  color: #9CA3AF;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #1F2D3D;
+  margin: 0 0 0.75rem 0;
+  font-weight: 700;
+}
+
+.card-description {
+  color: #4B5563;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+  flex-grow: 1;
+}
+
+.card-cta-btn {
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.primary-card .card-cta-btn {
+  background: #3A7AFE;
+  color: white;
+}
+
+.primary-card .card-cta-btn:hover {
+  background: #2563EB;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.placeholder-card .card-cta-btn.disabled {
+  background: #E5E7EB;
+  color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .concepts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .explorer-title {
+    font-size: 2rem;
+  }
+}

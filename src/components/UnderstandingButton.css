@@ -1,0 +1,47 @@
+.understanding-btn {
+  padding: 0.65rem 1.25rem;
+  border: 2px solid #E5E7EB;
+  background: white;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #6B7280;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.understanding-btn:hover {
+  border-color: #3A7AFE;
+  background: rgba(58, 122, 254, 0.05);
+  transform: translateY(-1px);
+}
+
+.understanding-btn.understood {
+  background: #10B981;
+  border-color: #10B981;
+  color: white;
+}
+
+.understanding-btn.understood:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
+.understanding-btn .checkmark,
+.understanding-btn .circle {
+  font-size: 1.1rem;
+}
+
+.understanding-btn .circle {
+  color: #9CA3AF;
+}
+
+@media (max-width: 600px) {
+  .understanding-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

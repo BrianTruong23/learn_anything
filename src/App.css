@@ -21,6 +21,10 @@
   background-color: #F7F9FC;
 }
 
+.app-summary-section {
+  margin-bottom: 3rem;
+}
+
 /* Toggle Timer Button */
 .toggle-timer-btn {
   position: absolute;

@@ -1,0 +1,255 @@
+.layernorm-container {
+  padding: 1rem;
+}
+
+.flow-diagram {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  min-height: 400px;
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.node-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.node-box {
+  padding: 0.8rem 1.5rem;
+  background: white;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--text-color);
+  font-family: 'Courier New', monospace;
+}
+
+.input-node .node-box {
+  border-color: #64748B;
+}
+
+.layer-node .node-box {
+  border-color: #3b82f6;
+}
+
+.norm-node .node-box {
+  border-color: #f59e0b;
+}
+
+.output-node .node-box {
+  border-color: #10b981;
+}
+
+.flow-path {
+  width: 3px;
+  height: 30px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.path-line {
+  width: 100%;
+  height: 100%;
+  background: var(--border-color);
+  position: relative;
+}
+
+.flow-path.flowing .path-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  animation: flowDown 1.5s ease;
+}
+
+@keyframes flowDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.residual-path {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  width: 100px;
+  height: 120px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.residual-line {
+  position: absolute;
+  width: 3px;
+  height: 100%;
+  background: var(--border-color);
+  left: -50px;
+  border-radius: 3px;
+}
+
+.residual-line::before,
+.residual-line::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background: var(--border-color);
+}
+
+.residual-line::before {
+  top: 0;
+  left: 0;
+}
+
+.residual-line::after {
+  bottom: 0;
+  left: 0;
+  width: 53px;
+}
+
+.residual-path.flowing .residual-line::before {
+  animation: flowRight 0.5s ease 0.3s;
+}
+
+.residual-path.flowing .residual-line {
+  animation: glowLine 0.5s ease 0.8s;
+}
+
+.residual-path.flowing .residual-line::after {
+  animation: flowRight 0.5s ease 1.3s;
+}
+
+@keyframes flowRight {
+  0%, 100% {
+    background: var(--border-color);
+  }
+  50% {
+    background: #10b981;
+  }
+}
+
+@keyframes glowLine {
+  0%, 100% {
+    background: var(--border-color);
+  }
+  50% {
+    background: #10b981;
+  }
+}
+
+.residual-label {
+  position: absolute;
+  left: -140px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #10b981;
+  white-space: nowrap;
+}
+
+.add-node {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #10b981;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.toggle-btn,
+.animate-btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn {
+  background: var(--primary-color);
+  color: white;
+}
+
+.toggle-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.animate-btn {
+  background: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.animate-btn:hover {
+  background: rgba(37, 99, 235, 0.05);
+  transform: translateY(-2px);
+}
+
+.info-box {
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+@media (max-width: 600px) {
+  .flow-diagram {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .residual-label {
+    font-size: 0.7rem;
+    left: -120px;
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+  
+  .toggle-btn,
+  .animate-btn {
+    width: 100%;
+  }
+}
