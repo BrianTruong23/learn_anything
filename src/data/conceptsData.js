@@ -1,7 +1,8 @@
 export const concepts = [
   {
     id: "concept_0",
-    title: "Big Picture: Transformer Architecture",
+    title: "Big Picture",
+    architectureImage: "/transformers.jpeg",
     subConcepts: [
       { id: "sub_0_1", label: "Parallel Processing" },
       { id: "sub_0_2", label: "Self-Attention Mechanism" },
@@ -70,6 +71,7 @@ export const concepts = [
   {
     id: "concept_1",
     title: "Positional Embeddings",
+    architectureImage: "/positional_embedding_white.png",
     subConcepts: [
       { id: "sub_1_1", label: "Sine/Cosine Formula" },
       { id: "sub_1_2", label: "Index to Angle Mapping" },
@@ -147,6 +149,7 @@ export const concepts = [
   {
     id: "concept_2",
     title: "Self-Attention",
+    architectureImage: "/self_attention_white.png",
     subConcepts: [
       { id: "sub_2_1", label: "Query, Key, Value" },
       { id: "sub_2_2", label: "Attention Scores" },
@@ -227,6 +230,7 @@ export const concepts = [
   {
     id: "concept_3",
     title: "Multi-Head Attention",
+    architectureImage: "/multihead_white.png",
     subConcepts: [
       { id: "sub_3_1", label: "Multiple Attention Heads" },
       { id: "sub_3_2", label: "Head Specialization" },
@@ -285,6 +289,7 @@ export const concepts = [
   {
     id: "concept_4",
     title: "Feedforward / MLP Block",
+    architectureImage: "/feed_forward_white.png",
     subConcepts: [
       { id: "sub_4_1", label: "Two-Layer Network" },
       { id: "sub_4_2", label: "ReLU Activation" },
@@ -345,6 +350,7 @@ export const concepts = [
   {
     id: "concept_5",
     title: "Layer Normalization & Residual Connections",
+    architectureImage: "/layer_normalization_white.png",
     subConcepts: [
       { id: "sub_5_1", label: "Residual Connections" },
       { id: "sub_5_2", label: "Layer Normalization" },

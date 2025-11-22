@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ConceptSection.css';
+import './ArchitectureVisual.css';
 import UnderstandingButton from './UnderstandingButton';
 import MathEquation from './MathEquation';
 import LatexText from './LatexText';
@@ -26,9 +27,37 @@ function ConceptSection({ concept, difficulty, isUnderstood, onToggleUnderstandi
   
   // Get the appropriate toy example component for this concept
   const ToyExampleComponent = toyExampleComponents[concept.id];
+  
+  // State for architecture visualization
+  const [isVisualVisible, setIsVisualVisible] = useState(false);
 
   return (
     <div className="concept-section-container">
+      {/* Architecture Visualization (Collapsible) */}
+      {concept.architectureImage && (
+        <div className="architecture-visual-section">
+          <button 
+            className={`visual-toggle-btn ${isVisualVisible ? 'active' : ''}`}
+            onClick={() => setIsVisualVisible(!isVisualVisible)}
+          >
+            {isVisualVisible ? '👁️ Hide Architecture Diagram' : '🖼️ Show Architecture Diagram'}
+          </button>
+          
+          {isVisualVisible && (
+            <div className="architecture-visual-content fade-in">
+              <img 
+                src={concept.architectureImage} 
+                alt={`${concept.title} Architecture`} 
+                className="architecture-image"
+              />
+              <p className="visual-caption">
+                High-level view of the Transformer architecture. Don't worry about the details yet—we'll break it down step by step!
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Motivation Card */}
       <div className="concept-card motivation-card">
         <h3 className="card-heading">

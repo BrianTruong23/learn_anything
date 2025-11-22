@@ -1,0 +1,21 @@
+{
+  "name": "AI Concept Explorer",
+  "short_name": "AI Explorer",
+  "description": "Build Understanding Concept by Concept",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#3A7AFE",
+  "background_color": "#ffffff"
+}

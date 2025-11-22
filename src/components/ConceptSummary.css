@@ -4,13 +4,11 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin: 2rem 0;
-  border-left: 5px solid #3A7AFE;
   transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 .concept-summary-section.summary-complete {
   background-color: #d1fae5; /* Light green */
-  border-left-color: #10B981; /* Green border */
 }
 
 .concept-summary-section.summary-complete .summary-textarea {
