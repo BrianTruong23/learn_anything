@@ -1,107 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './QuizSection.css';
+import { quizQuestions } from './data/quizQuestionsData.js';
+import { concepts } from './data/conceptsData.js';
+import ConceptSelectionForQuiz from './components/ConceptSelectionForQuiz';
 
-const quizQuestions = [
-  {
-    id: "q1",
-    type: "mcq",
-    question: "What is the core mechanism that differentiates Transformers from RNNs?",
-    options: [
-      "Recurrent connections over time",
-      "Self-attention over all tokens in parallel",
-      "Convolution over fixed-size windows",
-      "Hand-crafted linguistic features"
-    ],
-    correctOptionIndex: 1,
-    explanation: "Transformers use self-attention to relate all tokens in a sequence in parallel, unlike RNNs which process sequentially."
-  },
-  {
-    id: "q2",
-    type: "true_false",
-    statement: "Transformers must process tokens strictly left-to-right, just like standard RNNs.",
-    answer: false,
-    explanation: "False. Transformers process tokens in parallel using self-attention, not sequentially like RNNs."
-  },
-  {
-    id: "q3",
-    type: "free_form",
-    question: "In simple terms, why does self-attention help with long-range dependencies?",
-    keywords: ["attend", "token", "parallel", "dependencies", "direct"],
-    explanation: "Each token can directly attend to any other token in the sequence without passing information step by step, making long-range dependencies easier to capture."
-  },
-  {
-    id: "q4",
-    type: "mcq",
-    question: "What is the purpose of positional encoding in Transformers?",
-    options: [
-      "To make the model run faster",
-      "To reduce memory usage",
-      "To give the model information about token order",
-      "To prevent overfitting"
-    ],
-    correctOptionIndex: 2,
-    explanation: "Since Transformers process all tokens in parallel, positional encodings are added to give the model information about the order of tokens in the sequence."
-  },
-  {
-    id: "q5",
-    type: "true_false",
-    statement: "BERT uses only the Decoder part of the Transformer architecture.",
-    answer: false,
-    explanation: "False. BERT uses only the Encoder part of the Transformer. GPT uses only the Decoder part."
-  },
-  {
-    id: "q6",
-    type: "mcq",
-    question: "In the self-attention mechanism, what are the three vectors computed for each token?",
-    options: [
-      "Input, Output, Hidden",
-      "Query, Key, Value",
-      "Encoder, Decoder, Embedding",
-      "Position, Context, Attention"
-    ],
-    correctOptionIndex: 1,
-    explanation: "The three vectors in self-attention are Query (Q), Key (K), and Value (V), which are used to compute attention scores."
-  },
-  {
-    id: "q7",
-    type: "free_form",
-    question: "What operation is applied to the attention scores before they're used to weight the Values?",
-    keywords: ["softmax", "normalize", "normalized"],
-    explanation: "The softmax function is applied to normalize the attention scores, ensuring they sum to 1 and can be interpreted as probabilities."
-  },
-  {
-    id: "q8",
-    type: "mcq",
-    question: "What is the main benefit of Multi-Head Attention compared to single-head attention?",
-    options: [
-      "It reduces computational cost",
-      "It allows the model to attend to information from different representation subspaces",
-      "It eliminates the need for positional encoding",
-      "It makes training faster"
-    ],
-    correctOptionIndex: 1,
-    explanation: "Multi-Head Attention allows the model to jointly attend to information from different representation subspaces at different positions."
-  },
-  {
-    id: "q9",
-    type: "true_false",
-    statement: "Residual connections in Transformers help with gradient flow during backpropagation.",
-    answer: true,
-    explanation: "True. Residual connections (skip connections) help gradients flow through deep networks, making training more stable."
-  },
-  {
-    id: "q10",
-    type: "free_form",
-    question: "What mathematical operation combines the Query and Key to compute attention scores?",
-    keywords: ["dot product", "multiply", "multiplication"],
-    explanation: "The dot product (Q·K^T) is used to compute the attention scores, measuring the similarity between queries and keys."
-  }
-];
-
-function QuizSection({ onCorrectQuestion }) {
+function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionChange }) {
   const [answers, setAnswers] = useState({});
   const [feedback, setFeedback] = useState({});
   const [correctQuestions, setCorrectQuestions] = useState(new Set());
+
+  // Filter questions based on selected concepts
+  const filteredQuestions = useMemo(() => {
+    return quizQuestions.filter(q => selectedConcepts.includes(q.conceptTag));
+  }, [selectedConcepts]);
+
+  // Calculate question counts per concept
+  const questionCounts = useMemo(() => {
+    const counts = {};
+    quizQuestions.forEach(q => {
+      counts[q.conceptTag] = (counts[q.conceptTag] || 0) + 1;
+    });
+    return counts;
+  }, []);
 
   const handleMCQAnswer = (questionId, optionIndex) => {
     const question = quizQuestions.find(q => q.id === questionId);
@@ -161,12 +81,20 @@ function QuizSection({ onCorrectQuestion }) {
       <p className="quiz-intro">
         Answer these questions to test your knowledge about Transformers. Each correct answer awards <strong>+5 points</strong>!
       </p>
+
+      <ConceptSelectionForQuiz
+        concepts={concepts}
+        selectedConcepts={selectedConcepts}
+        onSelectionChange={onConceptSelectionChange}
+        questionCounts={questionCounts}
+      />
+
       <div className="quiz-progress">
-        You've answered <strong>{correctQuestions.size}/10</strong> questions correctly.
+        You've answered <strong>{correctQuestions.size}/{filteredQuestions.length}</strong> questions correctly.
       </div>
 
       <div className="quiz-questions">
-        {quizQuestions.map((question, index) => (
+        {filteredQuestions.map((question, index) => (
           <div key={question.id} className="question-card">
             <div className="question-number">Question {index + 1}</div>
             

@@ -1,11 +1,14 @@
 :root {
-  --primary-color: #646cff;
-  --primary-hover: #535bf2;
-  --bg-color: #f9f9f9;
-  --text-color: #333;
-  --card-bg: #ffffff;
-  --heading-color: #222;
+  --primary-color: #2563EB;
+  --primary-hover: #1D4ED8;
+  --bg-color: #F7F9FC;
+  --text-color: #111827;
+  --text-muted: #6B7280;
+  --card-bg: #FFFFFF;
+  --heading-color: #111827;
+  --border-color: #E5E7EB;
   --border-radius: 12px;
+  --secondary-color: #64748B;
 }
 
 .app-container {
@@ -15,6 +18,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #F7F9FC;
 }
 
 /* Toggle Timer Button */
@@ -289,6 +293,53 @@
   margin: 0;
 }
 
+/* Quiz Toggle */
+.quiz-toggle-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.quiz-toggle-btn {
+  padding: 1rem 2.5rem;
+  background: #3A7AFE;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(58, 122, 254, 0.25);
+}
+
+.quiz-toggle-btn:hover {
+  background: #2563EB;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(58, 122, 254, 0.35);
+}
+
+.quiz-toggle-btn:active {
+  transform: translateY(0);
+}
+
+/* Quiz Wrapper with Smooth Transition */
+.quiz-wrapper {
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
+}
+
+.quiz-wrapper.quiz-hidden {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.quiz-wrapper.quiz-visible {
+  max-height: 5000px;
+  opacity: 1;
+  margin-top: 2rem;
+}
+
 @media (max-width: 600px) {
   .app-container {
     padding: 1rem;
@@ -322,5 +373,10 @@
   
   .sources-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .quiz-toggle-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
   }
 }

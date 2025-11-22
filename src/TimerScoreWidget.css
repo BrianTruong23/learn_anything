@@ -23,12 +23,12 @@
 }
 
 .widget-label {
-  color: #666;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 .widget-value {
-  color: #333;
+  color: var(--text-color);
   font-weight: 700;
   font-size: 1rem;
 }

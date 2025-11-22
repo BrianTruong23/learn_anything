@@ -1,9 +1,14 @@
 :root {
-  --primary-color: #646cff;
-  --bg-color: #f9f9f9;
-  --text-color: #333;
-  --card-bg: #ffffff;
-  --heading-color: #222;
+  --primary-color: #2563EB;
+  --primary-hover: #1D4ED8;
+  --bg-color: #F5F5F5;
+  --text-color: #111827;
+  --text-muted: #6B7280;
+  --card-bg: #FFFFFF;
+  --heading-color: #111827;
+  --border-color: #E5E7EB;
+  --border-radius: 12px;
+  --secondary-color: #64748B;
 }
 
 body {
