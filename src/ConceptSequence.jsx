@@ -53,10 +53,26 @@ function ConceptSequence({ difficulty, onDifficultyChange, setScore }) {
   return (
     <div className={`concept-sequence ${allConceptsUnderstood ? 'section-complete' : ''}`} style={{ position: 'relative' }}>
       {/* Completion Indicator */}
-      <CompletionIndicator 
-        total={concepts.length}
-        understood={understoodConcepts.size}
-      />
+      {/* Completion Indicator */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
+        <CompletionIndicator 
+          total={concepts.length}
+          understood={understoodConcepts.size}
+        />
+      </div>
+      {/* Navigation Bar */}
+      <div className="concept-nav-bar">
+        {concepts.map((concept, index) => (
+          <button
+            key={concept.id}
+            className={`nav-item ${index === currentConceptIndex ? 'active' : ''} ${understoodConcepts.has(concept.id) ? 'completed' : ''}`}
+            onClick={() => setCurrentConceptIndex(index)}
+          >
+            {concept.title}
+          </button>
+        ))}
+      </div>
+
       <div className="progress-indicator">
         Step {currentConceptIndex + 1} of {concepts.length}: {currentConcept.title}
       </div>

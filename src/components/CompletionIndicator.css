@@ -1,8 +1,5 @@
 /* Progress bar wrapper */
 .completion-indicator {
-  position: absolute;
-  top: 1rem;                  /* distance from top of the step card */
-  right: 1.25rem;             /* distance from right edge */
   padding: 0.5rem 0.9rem;
   
   display: flex;
@@ -13,7 +10,6 @@
   background: #ffffff;
   border: 1px solid #E5E7EB;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  z-index: 10;
 }
 
 
