@@ -2,7 +2,7 @@ export const concepts = [
   {
     id: "concept_0",
     title: "Big Picture",
-    architectureImage: "/transformers.jpeg",
+    architectureImage: "/transformers.png",
     subConcepts: [
       { id: "sub_0_1", label: "Parallel Processing" },
       { id: "sub_0_2", label: "Self-Attention Mechanism" },

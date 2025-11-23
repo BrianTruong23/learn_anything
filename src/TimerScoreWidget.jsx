@@ -15,7 +15,7 @@ function TimerScoreWidget({ seconds, score }) {
         <span className="widget-value">{formatTime(seconds)}</span>
       </div>
       <div className="widget-row">
-        <span className="widget-label">Score:</span>
+        <span className="widget-label">Learning Points:</span>
         <span className="widget-value">{score}</span>
       </div>
     </div>

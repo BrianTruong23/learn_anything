@@ -62,7 +62,9 @@ function App() {
   // Auto-start timer on mount
   useEffect(() => {
     const interval = setInterval(() => {
-      setSeconds(prevSeconds => prevSeconds + 1);
+      if (!document.hidden) {
+        setSeconds(prevSeconds => prevSeconds + 1);
+      }
     }, 1000);
     
     return () => clearInterval(interval);
