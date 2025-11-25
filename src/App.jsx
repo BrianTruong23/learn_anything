@@ -113,6 +113,7 @@ function App() {
       </div>
 
       {/* Timer & Score Widget */}
+      {/* Timer & Score Widget */}
       {isTimerVisible && (
         <TimerScoreWidget 
           seconds={seconds} 

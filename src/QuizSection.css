@@ -416,6 +416,28 @@
   border: 1px solid var(--border-color);
 }
 
+@media (max-width: 600px) {
+  .page-indicator {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .pagination-controls {
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .pagination-btn {
+    width: 100%;
+    padding: 0.75rem;
+  }
+}
+
 
 /* Focused Mode Banner */
 .focused-mode-banner {

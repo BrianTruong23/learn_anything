@@ -36,14 +36,14 @@
   gap: 0.6rem;
   justify-content: center;
   padding: 1.5rem;
-  background: #f8f9fa;
+  background: var(--bg-color);
   border-radius: 12px;
   margin-bottom: 1.5rem;
 }
 
 .word-item {
   padding: 0.6rem 1rem;
-  background: white;
+  background: var(--card-bg);
   border: 2px solid var(--border-color);
   border-radius: 8px;
   font-weight: 500;
@@ -52,14 +52,14 @@
 
 .word-item.highlighted {
   border-color: var(--highlight-color);
-  background: color-mix(in srgb, var(--highlight-color) 15%, white);
+  background: color-mix(in srgb, var(--highlight-color) 15%, var(--highlight-mix-color));
   transform: translateY(-2px);
   box-shadow: 0 4px 8px color-mix(in srgb, var(--highlight-color) 25%, transparent);
   font-weight: 600;
 }
 
 .head-description {
-  background: white;
+  background: var(--card-bg);
   border: 2px solid var(--border-color);
   border-radius: 12px;
   padding: 1.25rem;
@@ -88,7 +88,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
-  background: #f8f9fa;
+  background: var(--bg-color);
   border-radius: 6px;
   font-size: 0.9rem;
 }

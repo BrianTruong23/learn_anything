@@ -23,11 +23,15 @@ const ToyExampleCrossAttention = () => {
 
   return (
     <div className="toy-example-container">
-      <div className="explanation-box" style={{ marginBottom: '20px' }}>
+      <div className="explanation-box" style={{ marginBottom: '20px', borderLeft: 'none' }}>
         <p>
           <strong>Cross-Attention</strong> connects the Decoder to the Encoder. 
-          Hover over a <strong>Decoder Token</strong> (Target) to see which <strong>Encoder Tokens</strong> (Source) it focuses on.
+          The Decoder queries the Encoder's memory to focus on relevant source words.
         </p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '10px', fontSize: '0.9rem' }}>
+          <span style={{ color: '#e65100', fontWeight: 'bold' }}>Q (Queries) from Decoder</span>
+          <span style={{ color: '#1976d2', fontWeight: 'bold' }}>K (Keys) & V (Values) from Encoder</span>
+        </div>
       </div>
 
       <div className="visualization-flow" style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-start' }}>
@@ -35,6 +39,7 @@ const ToyExampleCrossAttention = () => {
         {/* Encoder Output (Keys/Values) */}
         <div className="flow-step" style={{ width: '40%' }}>
           <h4>Encoder Output (Source)</h4>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '5px' }}>Keys (K) & Values (V)</div>
           <div className="token-list" style={{ flexDirection: 'column', gap: '15px' }}>
             {encoderTokens.map((token, idx) => (
               <div 
@@ -52,11 +57,15 @@ const ToyExampleCrossAttention = () => {
           </div>
         </div>
 
-        <div className="arrow" style={{ alignSelf: 'center' }}>⬅ Attention ⬅</div>
+        <div className="arrow" style={{ alignSelf: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <span>⬅ Attention ⬅</span>
+          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Q searches K</span>
+        </div>
 
         {/* Decoder Input (Queries) */}
         <div className="flow-step" style={{ width: '40%' }}>
           <h4>Decoder (Target)</h4>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '5px' }}>Queries (Q)</div>
           <div className="token-list" style={{ flexDirection: 'column', gap: '15px' }}>
             {decoderTokens.map((token, idx) => (
               <div 

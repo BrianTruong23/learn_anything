@@ -1,11 +1,11 @@
 /* Container for all toy examples */
 .toy-example-container {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 20px;
   font-family: 'Inter', sans-serif;
-  color: #333;
+  color: var(--text-color);
   margin-top: 15px;
 }
 
@@ -19,10 +19,23 @@
 
 .text-input {
   padding: 8px 12px;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 1rem;
   flex-grow: 1;
+}
+
+@media (max-width: 600px) {
+  .text-input {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    width: 100%;
+  }
+  
+  .input-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 /* Flow Visualization (Tokenization) */
@@ -34,7 +47,7 @@
 }
 
 .flow-step {
-  background: white;
+  background: var(--card-bg);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -45,14 +58,14 @@
 .flow-step h4 {
   margin: 0 0 10px 0;
   font-size: 0.9rem;
-  color: #6c757d;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .arrow {
   font-size: 1.2rem;
-  color: #adb5bd;
+  color: var(--text-muted);
   font-weight: bold;
 }
 
@@ -94,10 +107,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #fff;
+  background: var(--card-bg);
   padding: 5px 10px;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
 }
 
 .token-label {
@@ -121,7 +134,7 @@
 .vector-values {
   font-family: monospace;
   font-size: 0.75rem;
-  color: #888;
+  color: var(--text-muted);
 }
 
 /* Encoder/Decoder Diagrams */
@@ -134,8 +147,8 @@
 }
 
 .diagram-node {
-  background: white;
-  border: 2px solid #dee2e6;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   padding: 10px 20px;
   width: 250px;
@@ -145,15 +158,15 @@
 }
 
 .diagram-node.active-node {
-  border-color: #4caf50;
-  background-color: #e8f5e9;
+  border-color: var(--active-node-border);
+  background-color: var(--active-node-bg);
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
 }
 
 .diagram-node.completed-node {
   border-color: #a5d6a7;
-  color: #888;
+  color: var(--text-muted);
 }
 
 .node-content {
@@ -165,7 +178,7 @@
 }
 
 .node-connector {
-  color: #adb5bd;
+  color: var(--text-muted);
   font-size: 1.2rem;
   margin-top: 5px;
 }
@@ -222,8 +235,8 @@
 
 /* Explanation Box */
 .explanation-box {
-  background: #e3f2fd;
-  border-left: 4px solid #2196f3;
+  background: var(--bg-color);
+  border-left: 4px solid var(--primary-color);
   padding: 15px;
   border-radius: 4px;
   margin-top: 20px;
@@ -231,7 +244,7 @@
 
 .explanation-box h4 {
   margin: 0 0 5px 0;
-  color: #0d47a1;
+  color: var(--primary-color);
 }
 
 .explanation-box p {

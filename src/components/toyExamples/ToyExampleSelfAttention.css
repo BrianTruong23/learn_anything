@@ -3,9 +3,9 @@
   flex-direction: column;
   gap: 2rem;
   padding: 1.5rem;
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: 12px;
-  color: #000000;
+  color: var(--text-color);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -15,27 +15,27 @@
   gap: 0.8rem;
   justify-content: center;
   padding: 2rem;
-  background: #f5f5f5;
+  background: var(--bg-color);
   border-radius: 8px;
   min-height: 100px;
   align-items: center;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
 }
 
 .word-token {
   position: relative;
   padding: 0.5rem 1rem;
-  background: #e0e0e0;
+  background: var(--border-color);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   border: 2px solid transparent;
-  color: #333;
+  color: var(--text-color);
 }
 
 .word-token:hover {
-  background: #d0d0d0;
+  background: var(--secondary-color);
   transform: translateY(-2px);
 }
 
@@ -69,18 +69,18 @@
 .instruction-box {
   text-align: center;
   padding: 2rem;
-  color: #666;
+  color: var(--text-muted);
   font-size: 1.1rem;
-  border: 2px dashed #ccc;
+  border: 2px dashed var(--border-color);
   border-radius: 8px;
-  background: #fafafa;
+  background: var(--bg-color);
 }
 
 .calculation-breakdown {
-  background: #ffffff;
+  background: var(--card-bg);
   padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
@@ -94,17 +94,17 @@
 .vector-display {
   margin: 1rem 0;
   font-family: monospace;
-  background: #f8f9fa;
+  background: var(--bg-color);
   padding: 0.8rem;
   border-radius: 4px;
   display: flex;
   align-items: center;
   gap: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
 }
 
 .vector-display .label {
-  color: #555;
+  color: var(--text-muted);
   font-weight: 600;
 }
 
@@ -116,7 +116,7 @@
 .steps-table-container {
   overflow-x: auto;
   margin: 1.5rem 0;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
 }
 
@@ -130,17 +130,17 @@
 .steps-table td {
   padding: 0.8rem;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .steps-table th {
-  background: #f0f0f0;
-  color: #333;
+  background: var(--bg-color);
+  color: var(--heading-color);
   font-weight: 600;
 }
 
 .steps-table tr:hover {
-  background: #f9f9f9;
+  background: var(--bg-color);
 }
 
 .current-word-row {
@@ -149,12 +149,12 @@
 
 .word-cell {
   font-weight: bold;
-  color: #000;
+  color: var(--text-color);
 }
 
 .vector-cell {
   font-family: monospace;
-  color: #555;
+  color: var(--text-muted);
   font-size: 0.85rem;
 }
 
@@ -178,10 +178,10 @@
 .formula-explanation {
   margin-top: 1.5rem;
   padding: 1rem;
-  background: #f8f9fa;
+  background: var(--bg-color);
   border-left: 4px solid #646cff;
   font-size: 0.9rem;
-  color: #444;
+  color: var(--text-color);
 }
 
 .fade-in {

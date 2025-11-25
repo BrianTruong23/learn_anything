@@ -54,7 +54,7 @@ function ToyExampleMultiHead() {
             className={`head-btn ${activeHead === head.id ? 'active' : ''}`}
             style={{
               '--head-color': head.color,
-              backgroundColor: activeHead === head.id ? head.color : 'white',
+              backgroundColor: activeHead === head.id ? head.color : 'var(--card-bg)',
               color: activeHead === head.id ? 'white' : head.color,
               borderColor: head.color
             }}

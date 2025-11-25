@@ -1,42 +1,42 @@
 .simple-syntax-highlighter {
-  background-color: #ffffff; /* White background */
-  color: #24292e; /* Default text color */
+  background-color: var(--bg-color); /* Dark background in dark mode */
+  color: var(--text-color); /* Default text color */
   padding: 1rem;
   border-radius: 0.5rem;
   font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
   font-size: 0.9rem;
   overflow-x: auto;
   margin: 0;
-  border: 1px solid #e1e4e8;
+  border: 1px solid var(--border-color);
   line-height: 1.5;
 }
 
 .token.keyword {
-  color: #d73a49; /* Red/Pink for keywords */
+  color: var(--syntax-keyword); /* Red/Pink for keywords */
   font-weight: bold;
 }
 
 .token.string {
-  color: #032f62; /* Dark Blue for strings */
+  color: var(--syntax-string); /* Dark Blue for strings */
 }
 
 .token.comment {
-  color: #6a737d; /* Grey for comments */
+  color: var(--syntax-comment); /* Grey for comments */
   font-style: italic;
 }
 
 .token.number {
-  color: #005cc5; /* Blue for numbers */
+  color: var(--syntax-number); /* Blue for numbers */
 }
 
 .token.class-name {
-  color: #6f42c1; /* Purple for class names */
+  color: var(--syntax-class); /* Purple for class names */
 }
 
 .token.builtin {
-  color: #005cc5; /* Blue for builtins */
+  color: var(--syntax-builtin); /* Blue for builtins */
 }
 
 .token.identifier {
-  color: #24292e;
+  color: var(--text-color);
 }
