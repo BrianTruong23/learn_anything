@@ -703,7 +703,7 @@ export const cnnConcepts = [
 export const latentConcepts = [
   {
     id: "latent_0",
-    title: "Big Picture: Latent",
+    title: "Big Picture: Latent Diffusion",
     architectureImage: "PLACEHOLDER", // Placeholder
     subConcepts: [
       { id: "latent_sub_0_1", label: "Concept 1" },
@@ -712,10 +712,10 @@ export const latentConcepts = [
     ],
     explanations: {
       beginner: {
-        motivation: "Motivation for Latent...",
-        definition: "Definition of Latent...",
+        motivation: "Motivation for Latent Diffusion...",
+        definition: "Definition of Latent Diffusion...",
         toyExample: {
-          description: "Toy example for Latent:",
+          description: "Toy example for Latent Diffusion:",
           steps: ["Step 1", "Step 2", "Step 3"]
         }
       },

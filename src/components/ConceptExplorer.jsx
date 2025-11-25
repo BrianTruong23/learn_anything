@@ -29,9 +29,9 @@ function ConceptExplorer({ onSelectConcept }) {
         {/* Latent Card */}
         <div className="concept-card-item primary-card">
           <div className="card-badge intermediate">Intermediate</div>
-          <h2 className="card-title">Latent Architecture</h2>
+          <h2 className="card-title">Latent Diffusion</h2>
           <p className="card-description">
-            Explore the fundamental concepts of Latent.
+            Explore the fundamental concepts of Latent Diffusion.
           </p>
           <button 
             className="card-cta-btn"
@@ -84,17 +84,7 @@ function ConceptExplorer({ onSelectConcept }) {
           </button>
         </div>
 
-        {/* Placeholder Card: MLP */}
-        <div className="concept-card-item placeholder-card">
-          <div className="card-badge coming-soon">Coming Soon</div>
-          <h2 className="card-title">Multilayer Perceptrons (MLP)</h2>
-          <p className="card-description">
-            The building blocks of deep learning: weights, biases, and activations.
-          </p>
-          <button className="card-cta-btn disabled" disabled>
-            Explore
-          </button>
-        </div>
+
 
         {/* Placeholder Card: Reinforcement Learning */}
         <div className="concept-card-item placeholder-card">

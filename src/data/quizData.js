@@ -869,13 +869,13 @@ export const quizQuestions = [
   },
 
 
-  // Latent Questions
+  // Latent Diffusion Questions
   {
     id: "latent_q1",
     type: "mcq",
     level: "advanced",
     conceptTag: "latent_0",
-    question: "What is the primary goal of Latent?",
+    question: "What is the primary goal of Latent Diffusion?",
     options: [
       "Option A",
       "Option B",
@@ -883,6 +883,6 @@ export const quizQuestions = [
       "Option D"
     ],
     correctOptionIndex: 0,
-    explanation: "Placeholder explanation for Latent."
+    explanation: "Placeholder explanation for Latent Diffusion."
   },
 ];
