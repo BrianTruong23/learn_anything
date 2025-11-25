@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './ConceptSequence.css';
-import { concepts } from './data/conceptsData.js';
+// import { concepts } from './data/conceptsData.js'; // Removed direct import
 import DifficultySelector from './components/DifficultySelector';
 import ConceptSection from './components/ConceptSection';
 import CompletionIndicator from './components/CompletionIndicator';
 
-function ConceptSequence({ difficulty, onDifficultyChange, setScore }) {
+function ConceptSequence({ difficulty, onDifficultyChange, setScore, concepts }) {
   const [currentConceptIndex, setCurrentConceptIndex] = useState(0);
   const [understoodConcepts, setUnderstoodConcepts] = useState(new Set());
 

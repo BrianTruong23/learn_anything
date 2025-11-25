@@ -23,17 +23,52 @@ function ConceptExplorer({ onSelectConcept }) {
           >
             Start Transformer Journey
           </button>
+  
         </div>
 
-        {/* Placeholder Card: CNN */}
-        <div className="concept-card-item placeholder-card">
-          <div className="card-badge coming-soon">Coming Soon</div>
-          <h2 className="card-title">Convolutional Neural Networks (CNN)</h2>
+        {/* Latent Card */}
+        <div className="concept-card-item primary-card">
+          <div className="card-badge intermediate">Intermediate</div>
+          <h2 className="card-title">Latent Architecture</h2>
           <p className="card-description">
-            Learn how computers see images using filters and pooling layers.
+            Explore the fundamental concepts of Latent.
           </p>
-          <button className="card-cta-btn disabled" disabled>
-            Explore
+          <button 
+            className="card-cta-btn"
+            onClick={() => onSelectConcept('latent')}
+          >
+            Start Latent Journey
+          </button>
+        </div>
+
+        {/* BERT Card */}
+        <div className="concept-card-item primary-card">
+          <div className="card-badge intermediate">Intermediate</div>
+          <h2 className="card-title">BERT Architecture</h2>
+          <p className="card-description">
+            Explore bidirectional training, masked language modeling, and transfer learning.
+          </p>
+          <button 
+            className="card-cta-btn"
+            onClick={() => onSelectConcept('bert')}
+          >
+            Start BERT Journey
+          </button>
+        </div>
+
+        
+        {/* CNN Card */}
+        <div className="concept-card-item primary-card">
+          <div className="card-badge intermediate">Intermediate</div>
+          <h2 className="card-title">CNN Architecture</h2>
+          <p className="card-description">
+            Explore the fundamental concepts of CNN.
+          </p>
+          <button 
+            className="card-cta-btn"
+            onClick={() => onSelectConcept('cnn')}
+          >
+            Start CNN Journey
           </button>
         </div>
 
@@ -83,7 +118,17 @@ function ConceptExplorer({ onSelectConcept }) {
           <button className="card-cta-btn disabled" disabled>
             Explore
           </button>
-        </div>
+          
+
+
+        
+
+
+        
+
+
+        {/* INSERT_NEW_CARD_HERE */}
+      </div>
       </div>
     </div>
   );

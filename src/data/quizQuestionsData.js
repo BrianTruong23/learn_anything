@@ -189,5 +189,125 @@ export const quizQuestions = [
     question: "How do residual connections help prevent vanishing gradients?",
     keywords: ["identity", "direct", "path", "gradient", "flow", "highway"],
     explanation: "Residual connections provide an identity mapping that creates a direct path for gradients to flow backward through the network without diminishing, acting as a gradient highway."
-  }
+  },
+
+  // BERT Questions
+  // BERT Big Picture
+  {
+    id: "bert_q1",
+    type: "mcq",
+    conceptTag: "bert_0",
+    question: "What is the main difference between BERT and the original Transformer?",
+    options: [
+      "BERT uses only the Decoder",
+      "BERT uses only the Encoder",
+      "BERT uses both Encoder and Decoder",
+      "BERT uses RNNs"
+    ],
+    correctOptionIndex: 1,
+    explanation: "BERT is a stack of Transformer Encoders, designed to understand language bidirectionally, unlike the original Transformer which has both Encoder and Decoder for translation."
+  },
+  {
+    id: "bert_q2",
+    type: "true_false",
+    conceptTag: "bert_0",
+    statement: "BERT reads text sequentially from left to right, just like GPT.",
+    answer: false,
+    explanation: "False. BERT is bidirectional, meaning it attends to the entire sequence (left and right context) simultaneously."
+  },
+
+  // Masked Language Modeling
+  {
+    id: "bert_q3",
+    type: "mcq",
+    conceptTag: "bert_1",
+    question: "In Masked Language Modeling (MLM), what percentage of tokens are typically masked?",
+    options: [
+      "10%",
+      "15%",
+      "50%",
+      "100%"
+    ],
+    correctOptionIndex: 1,
+    explanation: "BERT typically masks 15% of the input tokens for prediction during pre-training."
+  },
+  {
+    id: "bert_q4",
+    type: "free_form",
+    conceptTag: "bert_1",
+    question: "Why does BERT replace some masked tokens with random words instead of just [MASK]?",
+    keywords: ["mismatch", "finetuning", "fine-tuning", "adapt", "real"],
+    explanation: "To mitigate the mismatch between pre-training (where [MASK] appears) and fine-tuning (where it doesn't), so the model learns to handle real words too."
+  },
+
+  // Next Sentence Prediction
+  {
+    id: "bert_q5",
+    type: "true_false",
+    conceptTag: "bert_2",
+    statement: "Next Sentence Prediction (NSP) is used to teach BERT relationships between sentences.",
+    answer: true,
+    explanation: "True. NSP helps BERT understand long-range dependencies and relationships between pairs of sentences."
+  },
+
+  // Fine-tuning
+  {
+    id: "bert_q6",
+    type: "mcq",
+    conceptTag: "bert_3",
+    question: "What is the main advantage of fine-tuning BERT?",
+    options: [
+      "It requires training from scratch",
+      "It allows using a pre-trained model for specific tasks with little data",
+      "It makes the model smaller",
+      "It removes the need for a GPU"
+    ],
+    explanation: "Fine-tuning leverages the massive knowledge BERT learned during pre-training, allowing it to achieve state-of-the-art results on specific tasks with relatively small datasets."
+  },
+
+  // CNN Questions
+  {
+    id: "cnn_q1",
+    type: "mcq",
+    conceptTag: "cnn_0",
+    question: "What is the primary goal of CNN?",
+    options: [
+      "Option A",
+      "Option B",
+      "Option C",
+      "Option D"
+    ],
+    correctOptionIndex: 0,
+    explanation: "Placeholder explanation for CNN."
+  },
+
+
+  // Latent Questions
+  {
+    id: "latent_q1",
+    type: "mcq",
+    conceptTag: "latent_0",
+    question: "What is the primary goal of Latent?",
+    options: [
+      "Option A",
+      "Option B",
+      "Option C",
+      "Option D"
+    ],
+    correctOptionIndex: 0,
+    explanation: "Placeholder explanation for Latent."
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
 ];

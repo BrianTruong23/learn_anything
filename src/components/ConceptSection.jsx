@@ -45,11 +45,18 @@ function ConceptSection({ concept, difficulty, isUnderstood, onToggleUnderstandi
           
           {isVisualVisible && (
             <div className="architecture-visual-content fade-in">
-              <img 
-                src={concept.architectureImage} 
-                alt={`${concept.title} Architecture`} 
-                className="architecture-image"
-              />
+              {concept.architectureImage === 'PLACEHOLDER' ? (
+                <div className="architecture-placeholder">
+                  <span className="placeholder-icon">🖼️</span>
+                  <p>Image Coming Soon</p>
+                </div>
+              ) : (
+                <img 
+                  src={concept.architectureImage} 
+                  alt={`${concept.title} Architecture`} 
+                  className="architecture-image"
+                />
+              )}
               <p className="visual-caption">
                 High-level view of the Transformer architecture. Don't worry about the details yet—we'll break it down step by step!
               </p>

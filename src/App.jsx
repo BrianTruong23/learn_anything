@@ -5,34 +5,10 @@ import QuizSection from './QuizSection';
 import ConceptSequence from './ConceptSequence';
 import ConceptSummary from './components/ConceptSummary';
 import ConceptExplorer from './components/ConceptExplorer';
-import { concepts } from './data/conceptsData.js';
+import { concepts, bertConcepts, cnnConcepts, latentConcepts } from './data/conceptsData.js';
+import { transformerSources, bertSources } from './data/sourcesData.js';
 
-const transformerSources = [
-  {
-    title: "Attention Is All You Need (Vaswani et al., 2017)",
-    type: "Paper",
-    url: "https://arxiv.org/abs/1706.03762",
-    description: "The original paper that introduced the Transformer architecture."
-  },
-  {
-    title: "The Illustrated Transformer",
-    type: "Blog",
-    url: "https://jalammar.github.io/illustrated-transformer/",
-    description: "A visual and intuitive explanation of the Transformer."
-  },
-  {
-    title: "Transformers from Scratch",
-    type: "Article",
-    url: "https://e2eml.school/transformers.html",
-    description: "Building intuition for how Transformers work from the ground up."
-  },
-  {
-    title: "Stanford CS224N: Transformers and Self-Attention",
-    type: "Course",
-    url: "https://web.stanford.edu/class/cs224n/",
-    description: "Academic course materials covering NLP and Transformers in depth."
-  }
-];
+
 
 function App() {
 
@@ -53,8 +29,24 @@ function App() {
   const [difficulty, setDifficulty] = useState('beginner');
   
   // Selected concepts state (for quiz filtering)
-  const allConceptIds = concepts.map(c => c.id);
-  const [selectedConcepts, setSelectedConcepts] = useState(allConceptIds);
+  // Selected concepts state (for quiz filtering)
+  const [selectedConcepts, setSelectedConcepts] = useState([]);
+
+  // Update selected concepts when view changes
+  useEffect(() => {
+    if (currentView === 'latent') {
+      setSelectedConcepts(latentConcepts.map(c => c.id));
+    } else if (currentView === 'cnn') {
+      setSelectedConcepts(cnnConcepts.map(c => c.id));
+    } else if (currentView === 'bert') {
+      setSelectedConcepts(bertConcepts.map(c => c.id));
+    } else if (currentView === 'transformer') {
+      setSelectedConcepts(concepts.map(c => c.id));
+    } else {
+      // Default to all if needed, or empty
+      setSelectedConcepts([]);
+    }
+  }, [currentView]);
   
   // Quiz visibility state
   const [isQuizVisible, setIsQuizVisible] = useState(false);
@@ -116,8 +108,8 @@ function App() {
         {currentView === 'explorer' ? (
           <ConceptExplorer 
             onSelectConcept={(conceptId) => {
-              if (conceptId === 'transformer') {
-                setCurrentView('transformer');
+              if (conceptId === 'transformer' || conceptId === 'bert' || conceptId === 'cnn' || conceptId === 'latent') {
+                setCurrentView(conceptId);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }
             }} 
@@ -143,7 +135,7 @@ function App() {
                   ← Back to Explorer
                 </button>
               </div>
-              <h1>Transformer Architecture</h1>
+              <h1>{currentView === 'latent' ? 'Latent Architecture' : currentView === 'cnn' ? 'CNN Architecture' : currentView === 'bert' ? 'BERT Architecture' : 'Transformer Architecture'}</h1>
             </header>
 
             {/* Concept Sequence */}
@@ -151,6 +143,7 @@ function App() {
               difficulty={difficulty}
               onDifficultyChange={setDifficulty}
               setScore={setScore}
+              concepts={currentView === 'latent' ? latentConcepts : currentView === 'cnn' ? cnnConcepts : currentView === 'bert' ? bertConcepts : concepts}
             />
 
             {/* Summary Section */}
@@ -165,7 +158,7 @@ function App() {
                 Here are some foundational resources to go deeper into Transformers:
               </p>
               <div className="sources-grid">
-                {transformerSources.map((source, index) => (
+                {(currentView === 'latent' ? [] : currentView === 'cnn' ? [] : currentView === 'bert' ? bertSources : transformerSources).map((source, index) => (
                   <div key={index} className="source-card">
                     <div className="source-header">
                       <span className="source-type">{source.type}</span>
@@ -202,6 +195,16 @@ function App() {
           </>
         )}
       </main>
+
+      {/* Footer */}
+      <footer className="app-footer">
+        <p>
+          &copy; {new Date().getFullYear()} Learn Anything. Created by{' '}
+          <a href="https://truongthoithang.com" target="_blank" rel="noopener noreferrer">
+            Thang Truong
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

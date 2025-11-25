@@ -65,3 +65,22 @@
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Placeholder Image Styles */
+.architecture-placeholder {
+  width: 100%;
+  height: 300px;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  border: 2px dashed #cbd5e1;
+}
+
+.placeholder-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
