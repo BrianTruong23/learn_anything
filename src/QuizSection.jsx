@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import './QuizSection.css';
 import { quizQuestions } from './data/quizData.js';
-import { concepts } from './data/conceptsData.js';
+import { transformerConcepts as concepts } from './data/conceptsData.js';
 import ConceptSelectionForQuiz from './components/ConceptSelectionForQuiz';
 
 function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionChange }) {
@@ -11,13 +11,14 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
   const [selectedLevel, setSelectedLevel] = useState('All');
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [showConceptSelection, setShowConceptSelection] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const QUESTIONS_PER_PAGE = 5;
 
   // Filter questions based on selected concepts and difficulty level
-  // Then shuffle and limit to 10
   useEffect(() => {
     const filtered = quizQuestions.filter(q => {
       const matchesConcept = selectedConcepts.includes(q.conceptTag);
-      const matchesLevel = selectedLevel === 'All' || q.level === selectedLevel;
+      const matchesLevel = selectedLevel === 'All' || q.level.toLowerCase() === selectedLevel.toLowerCase();
       return matchesConcept && matchesLevel;
     });
 
@@ -28,13 +29,29 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-    setShuffledQuestions(shuffled.slice(0, 10));
+    setShuffledQuestions(shuffled);
+    setCurrentPage(1); // Reset to first page on filter change
     
     // Reset state when filters change
     setAnswers({});
     setFeedback({});
     
   }, [selectedConcepts, selectedLevel]);
+
+  // Pagination logic
+  const totalPages = Math.ceil(shuffledQuestions.length / QUESTIONS_PER_PAGE);
+  const currentQuestions = shuffledQuestions.slice(
+    (currentPage - 1) * QUESTIONS_PER_PAGE,
+    currentPage * QUESTIONS_PER_PAGE
+  );
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(prev => prev - 1);
+  };
 
   // Calculate question counts per concept (total available)
   const questionCounts = useMemo(() => {
@@ -48,6 +65,7 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
   const handleReset = () => {
     setAnswers({});
     setFeedback({});
+    setCurrentPage(1);
   };
 
   const handleMCQAnswer = (questionId, optionIndex) => {
@@ -145,6 +163,7 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
       <div className="quiz-controls">
         <div className="quiz-progress">
           Showing <strong>{shuffledQuestions.length}</strong> questions. 
+          Page <strong>{currentPage}</strong> of <strong>{totalPages || 1}</strong>.
           You've answered <strong>{correctQuestions.size}</strong> correctly total.
         </div>
         <button className="reset-quiz-btn" onClick={handleReset}>
@@ -153,42 +172,67 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
       </div>
 
       <div className="quiz-questions">
-        {shuffledQuestions.length > 0 ? (
-          shuffledQuestions.map((question, index) => (
-            <div key={question.id} className="question-card">
-              <div className="question-header">
-                <span className="question-number">Question {index + 1}</span>
-                <span className={`difficulty-badge ${question.level.toLowerCase()}`}>{question.level}</span>
+        {currentQuestions.length > 0 ? (
+          <>
+            {currentQuestions.map((question, index) => (
+              <div key={question.id} className="question-card">
+                <div className="question-header">
+                  <span className="question-number">Question {(currentPage - 1) * QUESTIONS_PER_PAGE + index + 1}</span>
+                  <span className={`difficulty-badge ${question.level.toLowerCase()}`}>{question.level}</span>
+                </div>
+                
+                {question.type === 'mcq' && (
+                  <MCQQuestion
+                    question={question}
+                    selectedOption={answers[question.id]}
+                    feedback={feedback[question.id]}
+                    onAnswer={(optionIndex) => handleMCQAnswer(question.id, optionIndex)}
+                  />
+                )}
+                
+                {question.type === 'true_false' && (
+                  <TrueFalseQuestion
+                    question={question}
+                    selectedAnswer={answers[question.id]}
+                    feedback={feedback[question.id]}
+                    onAnswer={(answer) => handleTrueFalseAnswer(question.id, answer)}
+                  />
+                )}
+                
+                {question.type === 'free_form' && (
+                  <FreeFormQuestion
+                    question={question}
+                    userAnswer={answers[question.id]}
+                    feedback={feedback[question.id]}
+                    onSubmit={(text) => handleFreeFormSubmit(question.id, text)}
+                  />
+                )}
               </div>
-              
-              {question.type === 'mcq' && (
-                <MCQQuestion
-                  question={question}
-                  selectedOption={answers[question.id]}
-                  feedback={feedback[question.id]}
-                  onAnswer={(optionIndex) => handleMCQAnswer(question.id, optionIndex)}
-                />
-              )}
-              
-              {question.type === 'true_false' && (
-                <TrueFalseQuestion
-                  question={question}
-                  selectedAnswer={answers[question.id]}
-                  feedback={feedback[question.id]}
-                  onAnswer={(answer) => handleTrueFalseAnswer(question.id, answer)}
-                />
-              )}
-              
-              {question.type === 'free_form' && (
-                <FreeFormQuestion
-                  question={question}
-                  userAnswer={answers[question.id]}
-                  feedback={feedback[question.id]}
-                  onSubmit={(text) => handleFreeFormSubmit(question.id, text)}
-                />
-              )}
-            </div>
-          ))
+            ))}
+            
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="pagination-controls">
+                <button 
+                  className="pagination-btn" 
+                  onClick={handlePrevPage} 
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <span className="page-indicator">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button 
+                  className="pagination-btn" 
+                  onClick={handleNextPage} 
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="no-questions">
             No questions found for the selected filters. Try selecting more concepts or a different difficulty level.

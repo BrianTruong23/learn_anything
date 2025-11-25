@@ -1,0 +1,241 @@
+/* Container for all toy examples */
+.toy-example-container {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  margin-top: 15px;
+}
+
+/* Input Section */
+.input-section {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.text-input {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  flex-grow: 1;
+}
+
+/* Flow Visualization (Tokenization) */
+.visualization-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.flow-step {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  width: 100%;
+  text-align: center;
+}
+
+.flow-step h4 {
+  margin: 0 0 10px 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.arrow {
+  font-size: 1.2rem;
+  color: #adb5bd;
+  font-weight: bold;
+}
+
+/* Token Chips */
+.token-list, .id-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.token-chip {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.id-chip {
+  background: #f3e5f5;
+  color: #7b1fa2;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+/* Vector Visualization */
+.vector-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.vector-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+}
+
+.token-label {
+  width: 40px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.vector-visual {
+  display: flex;
+  gap: 2px;
+}
+
+.vector-cell {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+}
+
+.vector-values {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Encoder/Decoder Diagrams */
+.encoder-diagram, .decoder-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin: 20px 0;
+}
+
+.diagram-node {
+  background: white;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 10px 20px;
+  width: 250px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.diagram-node.active-node {
+  border-color: #4caf50;
+  background-color: #e8f5e9;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+}
+
+.diagram-node.completed-node {
+  border-color: #a5d6a7;
+  color: #888;
+}
+
+.node-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.node-connector {
+  color: #adb5bd;
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
+
+/* Side Input (Cross Attention) */
+.side-input {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  margin-left: 15px;
+  background: #fff3e0;
+  color: #e65100;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid #ffe0b2;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.side-input.fade-in {
+  opacity: 1;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.animate-btn {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.animate-btn:hover {
+  background: #1976d2;
+}
+
+.animate-btn:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+/* Explanation Box */
+.explanation-box {
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.explanation-box h4 {
+  margin: 0 0 5px 0;
+  color: #0d47a1;
+}
+
+.explanation-box p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

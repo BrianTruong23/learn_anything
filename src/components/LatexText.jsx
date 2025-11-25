@@ -11,25 +11,28 @@ import 'katex/dist/katex.min.css';
 function LatexText({ text }) {
   if (!text) return null;
 
-  // Split by block math first: \[ ... \]
-  const blockParts = text.split(/(\\\[.*?\\\])/s);
+  // Split by block math first: \[ ... \] OR $$ ... $$
+  const blockParts = text.split(/(\\\[.*?\\\]|\$\$[\s\S]*?\$\$)/s);
 
   return (
     <span>
       {blockParts.map((part, index) => {
-        if (part.startsWith('\\[') && part.endsWith('\\]')) {
+        if ((part.startsWith('\\[') && part.endsWith('\\]')) || (part.startsWith('$$') && part.endsWith('$$'))) {
           // Remove delimiters and render BlockMath
-          const math = part.slice(2, -2);
+          const math = part.startsWith('$$') ? part.slice(2, -2) : part.slice(2, -2);
           return <BlockMath key={index} math={math} />;
         } else {
-          // Handle inline math within this part: \( ... \)
-          const inlineParts = part.split(/(\\\(.*?\\\))/s);
+          // Handle inline math within this part: \( ... \) OR $ ... $
+          // Note: Regex for $...$ must be careful not to match $$...$$ (already handled) or escaped \$
+          const inlineParts = part.split(/(\\\(.*?\\\)|(?<!\$)\$(?!\$)[\s\S]*?(?<!\$)\$(?!\$))/s);
           return (
             <span key={index}>
               {inlineParts.map((subPart, subIndex) => {
                 if (subPart.startsWith('\\(') && subPart.endsWith('\\)')) {
-                  // Remove delimiters and render InlineMath
                   const math = subPart.slice(2, -2);
+                  return <InlineMath key={subIndex} math={math} />;
+                } else if (subPart.startsWith('$') && subPart.endsWith('$')) {
+                  const math = subPart.slice(1, -1);
                   return <InlineMath key={subIndex} math={math} />;
                 } else {
                   return <span key={subIndex}>{subPart}</span>;

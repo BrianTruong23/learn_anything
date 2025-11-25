@@ -4,21 +4,30 @@ import './ArchitectureVisual.css';
 import UnderstandingButton from './UnderstandingButton';
 import MathEquation from './MathEquation';
 import LatexText from './LatexText';
+import SimpleSyntaxHighlighter from './SimpleSyntaxHighlighter';
 import ToyExampleBigPicture from './toyExamples/ToyExampleBigPicture';
+import ToyExampleTokenization from './toyExamples/ToyExampleTokenization';
 import ToyExamplePositionalEmbeddings from './toyExamples/ToyExamplePositionalEmbeddings';
 import ToyExampleSelfAttention from './toyExamples/ToyExampleSelfAttention';
 import ToyExampleMultiHead from './toyExamples/ToyExampleMultiHead';
 import ToyExampleFeedforward from './toyExamples/ToyExampleFeedforward';
 import ToyExampleLayerNorm from './toyExamples/ToyExampleLayerNorm';
+import ToyExampleEncoder from './toyExamples/ToyExampleEncoder';
+import ToyExampleCrossAttention from './toyExamples/ToyExampleCrossAttention';
+import ToyExampleDecoder from './toyExamples/ToyExampleDecoder';
 
 // Map concept IDs to their interactive toy example components
 const toyExampleComponents = {
   'concept_0': ToyExampleBigPicture,
-  'concept_1': ToyExamplePositionalEmbeddings,
-  'concept_2': ToyExampleSelfAttention,
-  'concept_3': ToyExampleMultiHead,
-  'concept_4': ToyExampleFeedforward,
-  'concept_5': ToyExampleLayerNorm
+  'concept_1': ToyExampleTokenization, // Tokenization & Embeddings
+  'concept_2': ToyExamplePositionalEmbeddings,
+  'concept_3': ToyExampleSelfAttention,
+  'concept_4': ToyExampleMultiHead,
+  'concept_5': ToyExampleFeedforward, // Feed-Forward Networks
+  'concept_6': ToyExampleLayerNorm,   // Add & Norm
+  'concept_7': ToyExampleEncoder,     // Encoder Block
+  'concept_8': ToyExampleCrossAttention, // Cross-Attention
+  'concept_9': ToyExampleDecoder      // Decoder Block
 };
 
 function ConceptSection({ concept, difficulty, isUnderstood, onToggleUnderstanding }) {
@@ -30,6 +39,9 @@ function ConceptSection({ concept, difficulty, isUnderstood, onToggleUnderstandi
   
   // State for architecture visualization
   const [isVisualVisible, setIsVisualVisible] = useState(false);
+  
+  // State for code expansion
+  const [isCodeExpanded, setIsCodeExpanded] = useState(false);
 
   return (
     <div className="concept-section-container">
@@ -95,6 +107,29 @@ function ConceptSection({ concept, difficulty, isUnderstood, onToggleUnderstandi
           </div>
         )}
       </div>
+      
+      {/* Code Implementation Card */}
+      {concept.codeSnippet && (
+        <div className="concept-card code-card">
+          <div 
+            className="card-heading clickable-heading"
+            onClick={() => setIsCodeExpanded(!isCodeExpanded)}
+            style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+          >
+            <span>
+              <span className="card-icon">💻</span>
+              Code Implementation (PyTorch)
+            </span>
+            <span className="toggle-icon">{isCodeExpanded ? '▼' : '▶'}</span>
+          </div>
+          
+          {isCodeExpanded && (
+            <div className="code-content fade-in">
+              <SimpleSyntaxHighlighter code={concept.codeSnippet} language="python" />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Toy Example Card - Interactive Component */}
       <div className="concept-card toyexample-card">

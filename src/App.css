@@ -392,7 +392,6 @@
   margin-top: auto; /* Push to bottom if flex container */
   color: #64748B;
   font-size: 0.9rem;
-  border-top: 1px solid #E2E8F0;
   width: 100%;
 }
 

@@ -5,7 +5,7 @@ import QuizSection from './QuizSection';
 import ConceptSequence from './ConceptSequence';
 import ConceptSummary from './components/ConceptSummary';
 import ConceptExplorer from './components/ConceptExplorer';
-import { concepts, bertConcepts, cnnConcepts, latentConcepts } from './data/conceptsData.js';
+import { transformerConcepts, bertConcepts, cnnConcepts } from './data/conceptsData.js';
 import { transformerSources, bertSources } from './data/sourcesData.js';
 
 
@@ -41,12 +41,12 @@ function App() {
     } else if (currentView === 'bert') {
       setSelectedConcepts(bertConcepts.map(c => c.id));
     } else if (currentView === 'transformer') {
-      setSelectedConcepts(concepts.map(c => c.id));
+      setSelectedConcepts(transformerConcepts.map(c => c.id));
     } else {
       // Default to all if needed, or empty
       setSelectedConcepts([]);
     }
-  }, [currentView]);
+  }, [currentView, transformerConcepts, bertConcepts, cnnConcepts]);
   
   // Quiz visibility state
   const [isQuizVisible, setIsQuizVisible] = useState(false);
@@ -135,18 +135,28 @@ function App() {
                   ← Back to Explorer
                 </button>
               </div>
-              <h1>{currentView === 'latent' ? 'Latent Architecture' : currentView === 'cnn' ? 'CNN Architecture' : currentView === 'bert' ? 'BERT Architecture' : 'Transformer Architecture'}</h1>
+              <header className="app-header">
+                <h1>{currentView === 'latent' ? 'Latent Architecture' : currentView === 'cnn' ? 'CNN Architecture' : currentView === 'bert' ? 'BERT Architecture' : 'Transformer Architecture'}</h1>
+                {currentView === 'transformer' && (
+                  <p className="intro-text" style={{ maxWidth: '800px', margin: '0 auto 1.5rem', lineHeight: '1.6', color: '#4a5568' }}>
+                    We’ll build the transformer story step by step, like a ladder. We start from the big picture of what a transformer is trying to do, then move into embeddings and positions, then self-attention, then multi-head attention, then Add & LayerNorm + feed-forward, and finally how these pieces assemble into the encoder and decoder stacks that make up the full architecture.
+                  </p>
+                )}
+              </header>
             </header>
 
             {/* Concept Sequence */}
             <ConceptSequence 
+              key={currentView}
               difficulty={difficulty}
               onDifficultyChange={setDifficulty}
               setScore={setScore}
-              concepts={currentView === 'latent' ? latentConcepts : currentView === 'cnn' ? cnnConcepts : currentView === 'bert' ? bertConcepts : concepts}
+              concepts={
+                currentView === 'cnn' ? cnnConcepts : 
+                currentView === 'bert' ? bertConcepts : 
+                transformerConcepts
+              } 
             />
-
-            {/* Summary Section */}
             <div className="app-summary-section">
               <ConceptSummary sectionTitle="transformers" setScore={setScore} />
             </div>

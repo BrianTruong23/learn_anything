@@ -65,7 +65,7 @@ function ToyExampleLayerNorm() {
 
       <div className="controls">
         <button className="toggle-btn" onClick={handleToggle}>
-          {withResidual ? '✅ With Residual' : '❌ Without Residual'}
+          {withResidual ? 'Change to Without Residual' : 'Change to With Residual'}
         </button>
         <button className="animate-btn" onClick={triggerFlow}>
           🌊 Animate Flow
