@@ -46,7 +46,7 @@ class TinyTransformer(nn.Module):
   {
     id: "concept_1",
     title: "2. Tokenization & Embeddings",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `import torch
 import torch.nn as nn
 
@@ -75,7 +75,7 @@ embedded = embedding(token_ids)  # (2, 5, 512)`,
   {
     id: "concept_2",
     title: "3. Positional Encoding",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `import math
 import torch
 
@@ -112,7 +112,7 @@ pos_enc = sinusoidal_positional_encoding(max_len, d_model)  # (100, 512)`,
   {
     id: "concept_3",
     title: "4. Scaled Dot-Product Self-Attention",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `import torch
 import torch.nn as nn
 import math
@@ -151,7 +151,7 @@ class ScaledDotProductAttention(nn.Module):
   {
     id: "concept_4",
     title: "5. Multi-Head Attention",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `class MultiHeadAttention(nn.Module):
     def __init__(self, d_model, num_heads):
         super().__init__()
@@ -205,7 +205,7 @@ class ScaledDotProductAttention(nn.Module):
   {
     id: "concept_5",
     title: "6. Feed-Forward Networks (FFN)",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `class PositionwiseFFN(nn.Module):
     def __init__(self, d_model, d_ff):
         super().__init__()
@@ -236,7 +236,7 @@ class ScaledDotProductAttention(nn.Module):
   {
     id: "concept_6",
     title: "7. Add & Norm (Residuals & Layer Normalization)",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `class AddNorm(nn.Module):
     def __init__(self, d_model):
         super().__init__()
@@ -265,7 +265,7 @@ class ScaledDotProductAttention(nn.Module):
   {
     id: "concept_7",
     title: "8. Encoder Block / Encoder Stack",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `class EncoderLayer(nn.Module):
     def __init__(self, d_model, num_heads, d_ff):
         super().__init__()
@@ -317,7 +317,7 @@ class Encoder(nn.Module):
   {
     id: "concept_8",
     title: "9. Cross-Attention",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `class MultiHeadAttention(nn.Module):
     # ... (same as Self-Attention)
     def forward(self, query, key, value, mask=None):
@@ -347,7 +347,7 @@ class Encoder(nn.Module):
   {
     id: "concept_9",
     title: "10. Decoder Block / Decoder Stack",
-    architectureImage: "PLACEHOLDER",
+
     codeSnippet: `def subsequent_mask(size):
     # Mask out (set to 0) future positions
     # returns (1, size, size) for broadcasting
@@ -417,7 +417,7 @@ export const bertConcepts = [
   {
     id: "bert_0",
     title: "Big Picture: BERT",
-    architectureImage: "PLACEHOLDER", // Placeholder, ideally should be BERT specific
+
     subConcepts: [
       { id: "bert_sub_0_1", label: "Bidirectional Context" },
       { id: "bert_sub_0_2", label: "Masked Language Model" },
@@ -641,7 +641,7 @@ export const cnnConcepts = [
   {
     id: "cnn_0",
     title: "Big Picture: CNN",
-    architectureImage: "PLACEHOLDER", // Placeholder
+
     subConcepts: [
       { id: "cnn_sub_0_1", label: "Concept 1" },
       { id: "cnn_sub_0_2", label: "Concept 2" },
@@ -704,7 +704,7 @@ export const latentConcepts = [
   {
     id: "latent_0",
     title: "Big Picture: Latent Diffusion",
-    architectureImage: "PLACEHOLDER", // Placeholder
+
     subConcepts: [
       { id: "latent_sub_0_1", label: "Concept 1" },
       { id: "latent_sub_0_2", label: "Concept 2" },

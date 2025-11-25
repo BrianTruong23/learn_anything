@@ -26,49 +26,30 @@ function ConceptExplorer({ onSelectConcept }) {
   
         </div>
 
-        {/* Latent Card */}
-        <div className="concept-card-item primary-card">
-          <div className="card-badge intermediate">Intermediate</div>
-          <h2 className="card-title">Latent Diffusion</h2>
-          <p className="card-description">
-            Explore the fundamental concepts of Latent Diffusion.
-          </p>
-          <button 
-            className="card-cta-btn"
-            onClick={() => onSelectConcept('latent')}
-          >
-            Start Latent Journey
-          </button>
-        </div>
+
 
         {/* BERT Card */}
-        <div className="concept-card-item primary-card">
-          <div className="card-badge intermediate">Intermediate</div>
+        <div className="concept-card-item placeholder-card">
+          <div className="card-badge coming-soon">Coming Soon</div>
           <h2 className="card-title">BERT Architecture</h2>
           <p className="card-description">
             Explore bidirectional training, masked language modeling, and transfer learning.
           </p>
-          <button 
-            className="card-cta-btn"
-            onClick={() => onSelectConcept('bert')}
-          >
-            Start BERT Journey
+          <button className="card-cta-btn disabled" disabled>
+            Explore
           </button>
         </div>
 
         
         {/* CNN Card */}
-        <div className="concept-card-item primary-card">
-          <div className="card-badge intermediate">Intermediate</div>
+        <div className="concept-card-item placeholder-card">
+          <div className="card-badge coming-soon">Coming Soon</div>
           <h2 className="card-title">CNN Architecture</h2>
           <p className="card-description">
             Explore the fundamental concepts of CNN.
           </p>
-          <button 
-            className="card-cta-btn"
-            onClick={() => onSelectConcept('cnn')}
-          >
-            Start CNN Journey
+          <button className="card-cta-btn disabled" disabled>
+            Explore
           </button>
         </div>
 
