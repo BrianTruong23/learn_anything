@@ -774,6 +774,7 @@ export const quizQuestions = [
   {
     id: "bert_q1",
     type: "mcq",
+    level: "intermediate",
     conceptTag: "bert_0",
     question: "What is the main difference between BERT and the original Transformer?",
     options: [
@@ -788,6 +789,7 @@ export const quizQuestions = [
   {
     id: "bert_q2",
     type: "true_false",
+    level: "intermediate",
     conceptTag: "bert_0",
     statement: "BERT reads text sequentially from left to right, just like GPT.",
     answer: false,
@@ -798,6 +800,8 @@ export const quizQuestions = [
   {
     id: "bert_q3",
     type: "mcq",
+    level: "advanced",
+    conceptTag: "bert_1",
     conceptTag: "bert_1",
     question: "In Masked Language Modeling (MLM), what percentage of tokens are typically masked?",
     options: [
@@ -812,6 +816,7 @@ export const quizQuestions = [
   {
     id: "bert_q4",
     type: "free_form",
+    level: "advanced",
     conceptTag: "bert_1",
     question: "Why does BERT replace some masked tokens with random words instead of just [MASK]?",
     keywords: ["mismatch", "finetuning", "fine-tuning", "adapt", "real"],
@@ -822,6 +827,7 @@ export const quizQuestions = [
   {
     id: "bert_q5",
     type: "true_false",
+    level: "intermediate",
     conceptTag: "bert_2",
     statement: "Next Sentence Prediction (NSP) is used to teach BERT relationships between sentences.",
     answer: true,
@@ -832,6 +838,7 @@ export const quizQuestions = [
   {
     id: "bert_q6",
     type: "mcq",
+    level: "intermediate",
     conceptTag: "bert_3",
     question: "What is the main advantage of fine-tuning BERT?",
     options: [
@@ -848,6 +855,7 @@ export const quizQuestions = [
   {
     id: "cnn_q1",
     type: "mcq",
+    level: "beginner",
     conceptTag: "cnn_0",
     question: "What is the primary goal of CNN?",
     options: [
@@ -865,6 +873,7 @@ export const quizQuestions = [
   {
     id: "latent_q1",
     type: "mcq",
+    level: "advanced",
     conceptTag: "latent_0",
     question: "What is the primary goal of Latent?",
     options: [

@@ -18,7 +18,7 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
   useEffect(() => {
     const filtered = quizQuestions.filter(q => {
       const matchesConcept = selectedConcepts.includes(q.conceptTag);
-      const matchesLevel = selectedLevel === 'All' || q.level.toLowerCase() === selectedLevel.toLowerCase();
+      const matchesLevel = selectedLevel === 'All' || (q.level && q.level.toLowerCase() === selectedLevel.toLowerCase());
       return matchesConcept && matchesLevel;
     });
 
