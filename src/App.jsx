@@ -87,13 +87,30 @@ function App() {
     });
   };
 
+  // Dark Mode state
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Apply theme to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(prev => !prev);
+  };
+
   return (
 
     <div className="app-container">
-      {/* Toggle Timer Button */}
-      <button onClick={toggleTimerVisibility} className="toggle-timer-btn">
-        {isTimerVisible ? '👁️ Hide timer & score' : '👁️‍🗨️ Show timer & score'}
-      </button>
+      <div className="top-controls">
+        <button onClick={toggleDarkMode} className="theme-toggle-btn" title="Toggle Dark Mode">
+          {isDarkMode ? '☀️' : '🌙'}
+        </button>
+        {/* Toggle Timer Button */}
+        <button onClick={toggleTimerVisibility} className="toggle-timer-btn">
+          {isTimerVisible ? '👁️ Hide timer & score' : '👁️‍🗨️ Show timer & score'}
+        </button>
+      </div>
 
       {/* Timer & Score Widget */}
       {isTimerVisible && (
@@ -138,7 +155,7 @@ function App() {
               <header className="app-header">
                 <h1>{currentView === 'latent' ? 'Latent Architecture' : currentView === 'cnn' ? 'CNN Architecture' : currentView === 'bert' ? 'BERT Architecture' : 'Transformer Architecture'}</h1>
                 {currentView === 'transformer' && (
-                  <p className="intro-text" style={{ maxWidth: '800px', margin: '0 auto 1.5rem', lineHeight: '1.6', color: '#4a5568' }}>
+                  <p className="intro-text" style={{ maxWidth: '800px', margin: '0 auto 1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
                     We’ll build the transformer story step by step, like a ladder. We start from the big picture of what a transformer is trying to do, then move into embeddings and positions, then self-attention, then multi-head attention, then Add & LayerNorm + feed-forward, and finally how these pieces assemble into the encoder and decoder stacks that make up the full architecture.
                   </p>
                 )}

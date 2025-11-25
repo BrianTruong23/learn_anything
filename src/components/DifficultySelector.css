@@ -1,65 +1,43 @@
 .difficulty-selector {
-  background: var(--card-bg);
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
 }
 
 .difficulty-label {
   font-weight: 600;
   color: var(--heading-color);
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .difficulty-buttons {
   display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: var(--toggle-bg);
+  padding: 4px;
+  border-radius: 50px;
 }
 
 .difficulty-btn {
-  padding: 0.6rem 1.2rem;
-  border: 2px solid var(--border-color);
-  background: white;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 40px;
+  font-weight: 600;
+  color: var(--text-muted);
   cursor: pointer;
-  transition: all 0.3s ease;
-  color: var(--text-color);
+  transition: all 0.2s;
+  font-size: 0.95rem;
 }
 
 .difficulty-btn:hover {
-  border-color: var(--primary-color);
-  background: rgba(37, 99, 235, 0.05);
-  transform: translateY(-2px);
+  color: var(--heading-color);
 }
 
 .difficulty-btn.active {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-}
-
-@media (max-width: 600px) {
-  .difficulty-selector {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .difficulty-buttons {
-    width: 100%;
-  }
-
-  .difficulty-btn {
-    flex: 1;
-    min-width: 0;
-  }
+  background: var(--card-bg);
+  color: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

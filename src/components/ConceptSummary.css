@@ -1,5 +1,5 @@
 .concept-summary-section {
-  background: white;
+  background: var(--card-bg);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -13,7 +13,7 @@
 
 .concept-summary-section.summary-complete .summary-textarea {
   border-color: #10B981;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--bg-color);
 }
 
 .summary-header {
@@ -22,12 +22,12 @@
 
 .summary-title {
   font-size: 1.5rem;
-  color: #1F2D3D;
+  color: var(--heading-color);
   margin: 0 0 0.75rem 0;
 }
 
 .summary-hint {
-  color: #6B7280;
+  color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.5;
   margin: 0;
@@ -44,7 +44,9 @@
   resize: vertical;
   min-height: 150px;
   transition: all 0.2s ease;
-  color: #1F2D3D;
+  color: var(--text-color);
+  background: var(--bg-color);
+  border-color: var(--border-color);
 }
 
 .summary-textarea:focus {
@@ -65,7 +67,7 @@
 
 .summary-info {
   font-size: 0.85rem;
-  color: #6B7280;
+  color: var(--text-muted);
   font-style: italic;
 }
 

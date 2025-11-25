@@ -1,7 +1,8 @@
 :root {
+  /* Light Theme (Default) */
   --primary-color: #2563EB;
   --primary-hover: #1D4ED8;
-  --bg-color: #F5F5F5;
+  --bg-color: #F7F9FC;
   --text-color: #111827;
   --text-muted: #6B7280;
   --card-bg: #FFFFFF;
@@ -9,6 +10,23 @@
   --border-color: #E5E7EB;
   --border-radius: 12px;
   --secondary-color: #64748B;
+  --toggle-bg: #e0e0e0;
+  --toggle-text: #333;
+}
+
+[data-theme='dark'] {
+  /* Dark Theme */
+  --primary-color: #3B82F6; /* Slightly lighter blue for dark mode */
+  --primary-hover: #60A5FA;
+  --bg-color: #111827;      /* Dark Gray/Black */
+  --text-color: #F9FAFB;    /* Off-white */
+  --text-muted: #E5E7EB;    /* Lighter gray for better visibility */
+  --card-bg: #1F2937;       /* Darker Gray */
+  --heading-color: #F3F4F6;
+  --border-color: #374151;
+  --secondary-color: #94A3B8;
+  --toggle-bg: #374151;
+  --toggle-text: #F9FAFB;
 }
 
 body {

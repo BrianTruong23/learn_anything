@@ -11,14 +11,14 @@
 
 .explorer-title {
   font-size: 2.5rem;
-  color: #1F2D3D;
+  color: var(--heading-color);
   margin-bottom: 0.5rem;
   font-weight: 800;
 }
 
 .explorer-subtitle {
   font-size: 1.2rem;
-  color: #64748B;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .concept-card-item {
-  background: #FFFFFF;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -37,7 +37,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 1px solid #E5E7EB;
+  border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
 }
@@ -54,7 +54,8 @@
 
 .placeholder-card {
   opacity: 0.8;
-  background: #FAFAFA;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
 }
 
 .card-badge {
@@ -79,13 +80,13 @@
 
 .card-title {
   font-size: 1.5rem;
-  color: #1F2D3D;
+  color: var(--heading-color);
   margin: 0 0 0.75rem 0;
   font-weight: 700;
 }
 
 .card-description {
-  color: #4B5563;
+  color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.6;
   margin: 0 0 2rem 0;

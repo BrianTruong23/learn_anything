@@ -5,7 +5,7 @@
 }
 
 .concept-card {
-  background: #FFFFFF;
+  background: var(--card-bg);
   padding: 1.75rem;
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -28,7 +28,7 @@
   align-items: center;
   gap: 0.75rem;
   font-size: 1.3rem;
-  color: #1F2D3D;
+  color: var(--heading-color);
   margin: 0 0 1rem 0;
   font-weight: 600;
 }
@@ -40,7 +40,7 @@
 .card-content {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #1F2D3D;
+  color: var(--text-color);
   margin: 0;
 }
 
@@ -64,7 +64,7 @@
 
 .toggle-icon {
   font-size: 0.9rem;
-  color: #718096;
+  color: var(--text-muted);
 }
 
 .code-content {
@@ -72,14 +72,14 @@
 }
 
 .code-block {
-  background-color: #f7fafc;
+  background-color: var(--bg-color);
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;
   font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
   font-size: 0.9rem;
-  color: #2d3748;
-  border: 1px solid #e2e8f0;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   margin: 0;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .steps-container {
-  background: #f8f9fa;
+  background: var(--bg-color);
   padding: 1.25rem;
   border-radius: 8px;
   min-height: 100px;
@@ -116,7 +116,7 @@
   gap: 0.75rem;
   margin-bottom: 0.75rem;
   padding: 0.75rem;
-  background: white;
+  background: var(--card-bg);
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -149,7 +149,7 @@
 .no-steps-message,
 .no-example-message {
   text-align: center;
-  color: #6b7280;
+  color: var(--text-muted);
   font-style: italic;
   padding: 2rem 1rem;
   font-size: 1rem;

@@ -12,31 +12,82 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [showConceptSelection, setShowConceptSelection] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isFocusedMode, setIsFocusedMode] = useState(true); // Default to Focused Mode
   const QUESTIONS_PER_PAGE = 5;
 
-  // Filter questions based on selected concepts and difficulty level
+  // Helper to get random items from an array
+  const getRandomItems = (arr, n) => {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, n);
+  };
+
+  // Generate Focused Quiz (10 questions: 3 Beginner, 4 Intermediate, 3 Advanced)
+  const generateFocusedQuiz = () => {
+    const beginners = quizQuestions.filter(q => q.level && q.level.toLowerCase() === 'beginner');
+    const intermediates = quizQuestions.filter(q => q.level && q.level.toLowerCase() === 'intermediate');
+    const advanceds = quizQuestions.filter(q => q.level && q.level.toLowerCase() === 'advanced');
+
+    const selected = [
+      ...getRandomItems(beginners, 3),
+      ...getRandomItems(intermediates, 4),
+      ...getRandomItems(advanceds, 3)
+    ];
+
+    // Shuffle the final selection
+    return selected.sort(() => 0.5 - Math.random());
+  };
+
+  // Effect to handle question loading based on mode
   useEffect(() => {
-    const filtered = quizQuestions.filter(q => {
-      const matchesConcept = selectedConcepts.includes(q.conceptTag);
-      const matchesLevel = selectedLevel === 'All' || (q.level && q.level.toLowerCase() === selectedLevel.toLowerCase());
-      return matchesConcept && matchesLevel;
-    });
+    if (isFocusedMode) {
+      setShuffledQuestions(generateFocusedQuiz());
+      setCurrentPage(1);
+    } else {
+      // Custom Mode Logic (Existing)
+      const filtered = quizQuestions.filter(q => {
+        const matchesConcept = selectedConcepts.includes(q.conceptTag);
+        const matchesLevel = selectedLevel === 'All' || (q.level && q.level.toLowerCase() === selectedLevel.toLowerCase());
+        return matchesConcept && matchesLevel;
+      });
 
-    // Fisher-Yates shuffle
-    const shuffled = [...filtered];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      // Fisher-Yates shuffle
+      const shuffled = [...filtered];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      setShuffledQuestions(shuffled);
+      setCurrentPage(1);
     }
-
-    setShuffledQuestions(shuffled);
-    setCurrentPage(1); // Reset to first page on filter change
     
-    // Reset state when filters change
+    // Reset state when questions change (except correct questions)
     setAnswers({});
     setFeedback({});
     
-  }, [selectedConcepts, selectedLevel]);
+  }, [isFocusedMode, selectedConcepts, selectedLevel]);
+
+  // Handlers to switch to Custom Mode
+  const handleConceptChange = (newSelection) => {
+    setIsFocusedMode(false);
+    onConceptSelectionChange(newSelection);
+  };
+
+  const handleLevelChange = (level) => {
+    setIsFocusedMode(false);
+    setSelectedLevel(level);
+  };
+
+  const handleReset = () => {
+    setAnswers({});
+    setFeedback({});
+    setCurrentPage(1);
+    // Optionally reset to Focused Mode on full reset? 
+    // For now, let's keep the current mode but reset answers.
+    if (isFocusedMode) {
+       setShuffledQuestions(generateFocusedQuiz()); // Re-shuffle focused quiz
+    }
+  };
 
   // Pagination logic
   const totalPages = Math.ceil(shuffledQuestions.length / QUESTIONS_PER_PAGE);
@@ -62,11 +113,7 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
     return counts;
   }, []);
 
-  const handleReset = () => {
-    setAnswers({});
-    setFeedback({});
-    setCurrentPage(1);
-  };
+
 
   const handleMCQAnswer = (questionId, optionIndex) => {
     const question = quizQuestions.find(q => q.id === questionId);
@@ -127,6 +174,13 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
         Answer these questions to test your knowledge about Transformers. Each correct answer awards <strong>+5 points</strong>!
       </p>
 
+      {isFocusedMode && (
+        <div className="focused-mode-banner">
+          <span className="mode-badge">🎯 Focused Mode</span>
+          <span className="mode-desc">Showing 10 curated questions. Use filters below to switch to Custom Mode.</span>
+        </div>
+      )}
+
       <div className="quiz-filters-container">
         <button 
           className="toggle-concepts-btn"
@@ -139,7 +193,7 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
           <ConceptSelectionForQuiz
             concepts={concepts}
             selectedConcepts={selectedConcepts}
-            onSelectionChange={onConceptSelectionChange}
+            onSelectionChange={handleConceptChange}
             questionCounts={questionCounts}
           />
         )}
@@ -147,11 +201,18 @@ function QuizSection({ onCorrectQuestion, selectedConcepts, onConceptSelectionCh
         <div className="difficulty-filter">
           <span className="filter-label">Difficulty Level:</span>
           <div className="filter-buttons">
+            <button
+              className={`filter-btn focused-btn ${isFocusedMode ? 'active' : ''}`}
+              onClick={() => setIsFocusedMode(true)}
+              title="Show 10 curated questions"
+            >
+              🎯 Focused
+            </button>
             {['All', 'Beginner', 'Intermediate', 'Advanced'].map(level => (
               <button
                 key={level}
-                className={`filter-btn ${selectedLevel === level ? 'active' : ''}`}
-                onClick={() => setSelectedLevel(level)}
+                className={`filter-btn ${!isFocusedMode && selectedLevel === level ? 'active' : ''}`}
+                onClick={() => handleLevelChange(level)}
               >
                 {level}
               </button>
