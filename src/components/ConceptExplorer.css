@@ -52,6 +52,16 @@
   border-top: 6px solid #3A7AFE;
 }
 
+.active-card {
+  border-top: 6px solid #14B8A6;
+}
+
+.bert-card {
+  background:
+    linear-gradient(180deg, rgba(20, 184, 166, 0.08), transparent 42%),
+    var(--card-bg);
+}
+
 .placeholder-card {
   opacity: 0.8;
   background: var(--bg-color);
@@ -71,6 +81,11 @@
 .card-badge.intermediate {
   background: #E0F2FE;
   color: #0284C7;
+}
+
+.card-badge.beginner {
+  background: #CCFBF1;
+  color: #0F766E;
 }
 
 .card-badge.coming-soon {
@@ -109,9 +124,15 @@
   color: white;
 }
 
-.primary-card .card-cta-btn:hover {
+.primary-card .card-cta-btn:hover,
+.active-card .card-cta-btn:hover {
   background: #2563EB;
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.active-card .card-cta-btn {
+  background: #0F766E;
+  color: white;
 }
 
 .placeholder-card .card-cta-btn.disabled {

@@ -424,6 +424,55 @@ export const bertConcepts = [
       { id: "bert_sub_0_3", label: "Next Sentence Prediction" },
       { id: "bert_sub_0_4", label: "Transfer Learning" }
     ],
+    buildSteps: [
+      {
+        title: "Assemble the input",
+        detail: "Create token ids, segment ids, and position ids so every token knows what it is, where it is, and which sentence it belongs to."
+      },
+      {
+        title: "Run full self-attention",
+        detail: "Use an encoder-style attention mask, so each token can look left and right instead of only looking backward."
+      },
+      {
+        title: "Read task outputs",
+        detail: "Use every token vector for token tasks and the [CLS] vector for sentence-level decisions."
+      }
+    ],
+    visualFlow: [
+      { label: "[CLS] tokens [SEP] pair [SEP]", caption: "input sequence", kind: "special" },
+      { label: "token + segment + position", caption: "summed embeddings" },
+      { label: "encoder blocks", caption: "bidirectional self-attention" },
+      { label: "contextual vectors", caption: "one vector per token", kind: "target" }
+    ],
+    codeSnippet: `import torch
+import torch.nn as nn
+
+batch_size, seq_len, hidden = 2, 8, 32
+vocab_size, max_len, segment_types = 30522, 64, 2
+
+token_ids = torch.randint(0, vocab_size, (batch_size, seq_len))
+segment_ids = torch.tensor([
+    [0, 0, 0, 0, 1, 1, 1, 1],
+    [0, 0, 0, 1, 1, 1, 1, 1],
+])
+position_ids = torch.arange(seq_len).unsqueeze(0).expand(batch_size, seq_len)
+
+token_emb = nn.Embedding(vocab_size, hidden)
+segment_emb = nn.Embedding(segment_types, hidden)
+position_emb = nn.Embedding(max_len, hidden)
+
+x = token_emb(token_ids) + segment_emb(segment_ids) + position_emb(position_ids)
+encoder_layer = nn.TransformerEncoderLayer(
+    d_model=hidden,
+    nhead=4,
+    dim_feedforward=hidden * 4,
+    batch_first=True,
+)
+bert_like_encoder = nn.TransformerEncoder(encoder_layer, num_layers=2)
+
+contextual_vectors = bert_like_encoder(x)
+cls_vector = contextual_vectors[:, 0]
+print(contextual_vectors.shape, cls_vector.shape)`,
     explanations: {
       beginner: {
         motivation: "Transformers read the whole sentence at once, but the original Transformer was designed for translation (reading one language and writing another). What if we just want to understand a language really well? We need a model that can look at a word and understand it based on BOTH what comes before it AND what comes after it.",
@@ -478,6 +527,62 @@ export const bertConcepts = [
       { id: "bert_sub_1_3", label: "Token Replacement" },
       { id: "bert_sub_1_4", label: "Prediction Softmax" }
     ],
+    buildSteps: [
+      {
+        title: "Choose prediction targets",
+        detail: "Sample about 15% of non-special tokens and remember their original ids as labels."
+      },
+      {
+        title: "Corrupt the visible input",
+        detail: "Apply the 80-10-10 rule: mostly [MASK], sometimes random token, sometimes unchanged."
+      },
+      {
+        title: "Train only masked positions",
+        detail: "Project encoder vectors to vocabulary logits and compute cross-entropy only where labels are not ignored."
+      }
+    ],
+    visualFlow: [
+      { label: "the chef cooked soup", caption: "original tokens" },
+      { label: "the chef [MASK] soup", caption: "corrupted input", kind: "special" },
+      { label: "BERT encoder", caption: "use both sides" },
+      { label: "predict cooked", caption: "loss at target only", kind: "target" }
+    ],
+    codeSnippet: `import torch
+import torch.nn as nn
+
+mask_id = 103
+vocab_size = 30522
+ignore_index = -100
+
+token_ids = torch.tensor([[101, 1996, 9434, 12984, 11350, 102]])
+special_tokens = (token_ids == 101) | (token_ids == 102)
+
+# In a real pre-training batch this is sampled at about 15%.
+# Here we pick one token so the example always has a target.
+selected = torch.zeros_like(token_ids, dtype=torch.bool)
+selected[0, 3] = True
+
+labels = token_ids.clone()
+labels[~selected] = ignore_index
+
+corrupted = token_ids.clone()
+replace_prob = torch.rand(token_ids.shape)
+random_words = torch.randint(0, vocab_size, token_ids.shape)
+
+corrupted[selected & (replace_prob < 0.8)] = mask_id
+corrupted[selected & (replace_prob >= 0.8) & (replace_prob < 0.9)] = random_words[
+    selected & (replace_prob >= 0.8) & (replace_prob < 0.9)
+]
+
+hidden = torch.randn(token_ids.size(0), token_ids.size(1), 768)
+mlm_head = nn.Linear(768, vocab_size)
+logits = mlm_head(hidden)
+
+loss = nn.CrossEntropyLoss(ignore_index=ignore_index)(
+    logits.view(-1, vocab_size),
+    labels.view(-1),
+)
+print(corrupted, labels, loss.item())`,
     explanations: {
       beginner: {
         motivation: "How do you teach a computer to understand context? If you just let it read left-to-right, it cheats by just looking at the next word. We need a way to force it to use context clues to fill in the blanks.",
@@ -532,6 +637,45 @@ export const bertConcepts = [
       { id: "bert_sub_2_3", label: "Segment Embeddings" },
       { id: "bert_sub_2_4", label: "Binary Classification" }
     ],
+    buildSteps: [
+      {
+        title: "Pack two sentences",
+        detail: "Place [CLS] at the front, separate A and B with [SEP], and mark A with segment 0 and B with segment 1."
+      },
+      {
+        title: "Encode the whole pair",
+        detail: "Let [CLS] attend to both sentences so it can collect evidence about whether the pair belongs together."
+      },
+      {
+        title: "Classify the pair",
+        detail: "Feed the final [CLS] vector into a two-class head for IsNext vs NotNext."
+      }
+    ],
+    visualFlow: [
+      { label: "[CLS] A [SEP] B [SEP]", caption: "sentence pair", kind: "special" },
+      { label: "segment ids: 0 then 1", caption: "pair structure" },
+      { label: "[CLS] vector", caption: "pooled relationship signal" },
+      { label: "IsNext / NotNext", caption: "binary classifier", kind: "target" }
+    ],
+    codeSnippet: `import torch
+import torch.nn as nn
+
+hidden = 768
+batch_size, seq_len = 4, 12
+
+# Pretend this came from a BERT encoder.
+encoded = torch.randn(batch_size, seq_len, hidden)
+cls_vector = encoded[:, 0]
+
+nsp_head = nn.Linear(hidden, 2)
+nsp_logits = nsp_head(cls_vector)
+
+# 1 means Sentence B is the true next sentence. 0 means random sentence.
+labels = torch.tensor([1, 0, 1, 0])
+loss = nn.CrossEntropyLoss()(nsp_logits, labels)
+
+predictions = nsp_logits.argmax(dim=-1)
+print({"loss": loss.item(), "predictions": predictions.tolist()})`,
     explanations: {
       beginner: {
         motivation: "Many tasks involve two sentences, like Question & Answer or Cause & Effect. Just understanding words isn't enough; the model needs to understand the relationship between two separate sentences.",
@@ -589,6 +733,49 @@ export const bertConcepts = [
       { id: "bert_sub_3_3", label: "Few-Shot Learning" },
       { id: "bert_sub_3_4", label: "Catastrophic Forgetting" }
     ],
+    buildSteps: [
+      {
+        title: "Pick a task head",
+        detail: "Use [CLS] for classification, every token for tagging, or start/end heads for question answering."
+      },
+      {
+        title: "Keep the learning rate small",
+        detail: "Update the pre-trained encoder gently so task learning does not erase useful language features."
+      },
+      {
+        title: "Train end to end",
+        detail: "Backpropagate task loss through the head and the BERT encoder for a few epochs."
+      }
+    ],
+    visualFlow: [
+      { label: "review text", caption: "task input" },
+      { label: "pre-trained BERT", caption: "language features" },
+      { label: "[CLS] vector", caption: "sentence representation", kind: "special" },
+      { label: "positive / negative", caption: "task head", kind: "target" }
+    ],
+    codeSnippet: `import torch
+import torch.nn as nn
+
+class BertForClassification(nn.Module):
+    def __init__(self, bert_encoder, hidden_size=768, num_labels=2):
+        super().__init__()
+        self.bert = bert_encoder
+        self.dropout = nn.Dropout(0.1)
+        self.classifier = nn.Linear(hidden_size, num_labels)
+
+    def forward(self, input_ids, attention_mask=None, labels=None):
+        encoded = self.bert(input_ids, attention_mask=attention_mask)
+        cls_vector = encoded[:, 0]
+        logits = self.classifier(self.dropout(cls_vector))
+
+        if labels is None:
+            return logits
+
+        loss = nn.CrossEntropyLoss()(logits, labels)
+        return loss, logits
+
+# Optimizers for BERT fine-tuning usually use a small learning rate.
+# optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5, weight_decay=0.01)`,
     explanations: {
       beginner: {
         motivation: "Training a model like BERT from scratch takes huge computers and weeks of time. We don't want to do that for every single problem. Instead, we want to take the 'smart' BERT and teach it a specific job quickly.",
@@ -758,7 +945,4 @@ export const latentConcepts = [
     }
   }
 ];
-
-
-
 

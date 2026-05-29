@@ -45,11 +45,114 @@
 }
 
 .toyexample-card {
-  border-left: 4px solid #F59E0B; /* Code Card Styles */
+  border-left: none;
 }
 
 .code-card {
-  border-left: 4px solid #805ad5; /* Purple border */
+  border-left: none;
+}
+
+.build-path-card {
+  border-left: none;
+}
+
+.build-path-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.build-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.build-step {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 0.85rem;
+  padding: 0.95rem;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.build-step-index {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0F766E;
+  color: white;
+  font-weight: 800;
+}
+
+.build-step h4 {
+  margin: 0 0 0.25rem;
+  color: var(--heading-color);
+  font-size: 1rem;
+}
+
+.build-step p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.build-flow {
+  min-height: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(59, 130, 246, 0.08)),
+    var(--bg-color);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.flow-node {
+  padding: 0.85rem;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.flow-node.special {
+  border-color: #F59E0B;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.flow-node.target {
+  border-color: #14B8A6;
+  background: rgba(20, 184, 166, 0.12);
+}
+
+.flow-node-label {
+  display: block;
+  color: var(--heading-color);
+  font-weight: 800;
+}
+
+.flow-node-caption {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  margin-top: 0.2rem;
+}
+
+.flow-connector {
+  width: 2px;
+  height: 18px;
+  margin: 0 auto;
+  background: #14B8A6;
 }
 
 .clickable-heading {
@@ -250,5 +353,9 @@
 
   .control-btn {
     width: 100%;
+  }
+
+  .build-path-layout {
+    grid-template-columns: 1fr;
   }
 }

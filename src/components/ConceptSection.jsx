@@ -107,6 +107,43 @@ function ConceptSection({ concept, difficulty, isUnderstood, onToggleUnderstandi
           </div>
         )}
       </div>
+
+      {/* Build Path Card */}
+      {concept.buildSteps && concept.buildSteps.length > 0 && (
+        <div className="concept-card build-path-card">
+          <h3 className="card-heading">
+            <span className="card-icon">🧱</span>
+            Build Path
+          </h3>
+          <div className="build-path-layout">
+            <div className="build-steps-list">
+              {concept.buildSteps.map((step, index) => (
+                <div className="build-step" key={step.title}>
+                  <div className="build-step-index">{index + 1}</div>
+                  <div>
+                    <h4>{step.title}</h4>
+                    <p>{step.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {concept.visualFlow && concept.visualFlow.length > 0 && (
+              <div className="build-flow" aria-label={`${concept.title} visual flow`}>
+                {concept.visualFlow.map((item, index) => (
+                  <React.Fragment key={item.label}>
+                    <div className={`flow-node ${item.kind || ''}`}>
+                      <span className="flow-node-label">{item.label}</span>
+                      {item.caption && <span className="flow-node-caption">{item.caption}</span>}
+                    </div>
+                    {index < concept.visualFlow.length - 1 && <div className="flow-connector" />}
+                  </React.Fragment>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       
       {/* Code Implementation Card */}
       {concept.codeSnippet && (
@@ -140,6 +177,18 @@ function ConceptSection({ concept, difficulty, isUnderstood, onToggleUnderstandi
         
         {ToyExampleComponent ? (
           <ToyExampleComponent />
+        ) : explanation.toyExample ? (
+          <div className="guided-example">
+            <p className="example-description">{explanation.toyExample.description}</p>
+            <div className="steps-container">
+              {explanation.toyExample.steps.map((step, index) => (
+                <div className="step-item" key={`${concept.id}-toy-${index}`}>
+                  <span className="step-number">{index + 1}</span>
+                  <span className="step-text">{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         ) : (
           <div className="no-example-message">
             Interactive example coming soon for this concept!

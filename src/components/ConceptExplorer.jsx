@@ -29,14 +29,17 @@ function ConceptExplorer({ onSelectConcept }) {
 
 
         {/* BERT Card */}
-        <div className="concept-card-item placeholder-card">
-          <div className="card-badge coming-soon">Coming Soon</div>
+        <div className="concept-card-item active-card bert-card">
+          <div className="card-badge beginner">Study Ready</div>
           <h2 className="card-title">BERT Architecture</h2>
           <p className="card-description">
-            Explore bidirectional training, masked language modeling, and transfer learning.
+            Build bidirectional inputs, masked language modeling, sentence-pair training, and fine-tuning heads with code-backed lessons.
           </p>
-          <button className="card-cta-btn disabled" disabled>
-            Explore
+          <button
+            className="card-cta-btn"
+            onClick={() => onSelectConcept('bert')}
+          >
+            Start BERT Study
           </button>
         </div>
 

@@ -160,6 +160,11 @@ function App() {
                     We’ll build the transformer story step by step, like a ladder. We start from the big picture of what a transformer is trying to do, then move into embeddings and positions, then self-attention, then multi-head attention, then Add & LayerNorm + feed-forward, and finally how these pieces assemble into the encoder and decoder stacks that make up the full architecture.
                   </p>
                 )}
+                {currentView === 'bert' && (
+                  <p className="intro-text" style={{ maxWidth: '800px', margin: '0 auto 1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
+                    Study BERT as a buildable system: first construct the encoder input, then train with masked language modeling, then inspect sentence-pair prediction, and finally add a task head for fine-tuning. Each step includes the model pieces, a visual flow, and PyTorch code students can adapt.
+                  </p>
+                )}
               </header>
             </header>
 
@@ -176,14 +181,14 @@ function App() {
               } 
             />
             <div className="app-summary-section">
-              <ConceptSummary sectionTitle="transformers" setScore={setScore} />
+              <ConceptSummary sectionTitle={currentView === 'bert' ? 'BERT' : 'transformers'} setScore={setScore} />
             </div>
 
             {/* Sources Section */}
             <section className="sources-section">
               <h2>Learn from papers & credible sources</h2>
               <p className="sources-intro">
-                Here are some foundational resources to go deeper into Transformers:
+                Here are some foundational resources to go deeper into {currentView === 'bert' ? 'BERT' : 'Transformers'}:
               </p>
               <div className="sources-grid">
                 {(currentView === 'latent' ? [] : currentView === 'cnn' ? [] : currentView === 'bert' ? bertSources : transformerSources).map((source, index) => (
